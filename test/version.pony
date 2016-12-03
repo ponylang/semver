@@ -51,3 +51,22 @@ class TestVersionString is UnitTest
     h.assert_eq[String]("alpha.0.beta", v5.preReleaseString())
     h.assert_eq[String]("buildinfo.morebuildinfo", v5.buildString())
     h.assert_eq[String]("5.0.0-alpha.0.beta+buildinfo.morebuildinfo", v5.string())
+
+class TestVersionValidation is UnitTest
+  fun name(): String =>
+    "VersionValidation"
+  
+  fun apply(h: TestHelper) =>
+    let v1 = Version(1)
+    h.assert_true(v1.isValid())
+
+    let v2 = Version(where major' = 1, prFields' = ["good", "b$d", "", 1, "fine"], buildFields' = ["good", "b$d", "", "fine"])
+    h.assert_false(v2.isValid())
+    h.assert_array_eq[String]([
+        "pre-release field 2 contains at least one non-alphanumeric character",
+        "pre-release field 3 is blank",
+        "build field 2 contains at least one non-alphanumeric character",
+        "build field 3 is blank"
+      ],
+      v2.errors
+    )
