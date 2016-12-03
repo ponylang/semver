@@ -19,6 +19,16 @@ class Version is Stringable
     patch = patch'
     prFields = prFields'
     buildFields = buildFields'
+
+  // Parsing
+  new parse(s: String) =>
+    major = 1
+    minor = 0
+    patch = 0
+    prFields = Array[PreReleaseField]
+    buildFields = Array[String]
+
+  // String inspection
   
   fun string() : String iso^ =>
     let result = recover String(5) end // we always need at least 5 characters ("0.0.0")
