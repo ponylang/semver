@@ -106,7 +106,17 @@ class Version is Stringable
       patch = majMinPat(2).u64()
 
       if (headAndPreRel.size() == 2) then
-        prFields.append(headAndPreRel(1).split("."))
+        for p in headAndPreRel(1).split(".").values() do
+          if ((p != "") and (Strings.containsOnly(p, _VersionConsts.nums()))) then
+            if (p.compare_sub("0", 1) is Equal) then
+              errors.push("numeric pre-release fields cannot have leading zeros")
+            else
+              prFields.push(p.u64())
+            end
+          else
+            prFields.push(p)
+          end
+        end
       end
 
       if (headAndBuild.size() == 2) then
