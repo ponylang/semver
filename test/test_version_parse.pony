@@ -39,7 +39,7 @@ class TestVersionParse is UnitTest
       "build field 3 is blank"
     ], v7.errors)
 
-    let v8 = ParseVersion("1.2.3-pre.$..01.0a.1+build.$..1")
+    let v8 = ParseVersion("1.2.3-pre.$..01.0a.0.1+build.$..1")
     h.assert_false(v8.isValid())
     h.assert_array_eq[String]([
       "numeric pre-release fields cannot have leading zeros",

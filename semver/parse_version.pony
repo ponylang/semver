@@ -31,7 +31,7 @@ primitive ParseVersion
       if (headAndPreRel.size() == 2) then
         for p in headAndPreRel(1).split(".").values() do
           if ((p != "") and (Strings.containsOnly(p, VersionConsts.nums()))) then
-            if (p.compare_sub("0", 1) is Equal) then
+            if ((p.size() > 1) and (p.compare_sub("0", 1) is Equal)) then
               v.errors.push("numeric pre-release fields cannot have leading zeros")
             else
               v.prFields.push(p.u64())
