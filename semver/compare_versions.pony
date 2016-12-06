@@ -26,6 +26,7 @@ primitive CompareVersions
         | Less => return Less
         | Greater => return Greater
         end
+        i = i + 1
       end
     end
 
