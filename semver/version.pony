@@ -20,7 +20,7 @@ class Version
     patch = patch'
     prFields.append(prFields')
     buildFields.append(buildFields')
-    errors.append(_VersionFieldValidator(prFields, buildFields))
+    errors.append(ValidateVersionFields(prFields, buildFields))
 
   // Validation
 

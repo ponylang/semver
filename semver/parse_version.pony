@@ -18,7 +18,7 @@ primitive ParseVersion
       end
 
       for m in majMinPat.values() do
-        if ((m == "") or (not Strings.containsOnly(m, _VersionConsts.nums()))) then
+        if ((m == "") or (not Strings.containsOnly(m, VersionConsts.nums()))) then
           v.errors.push("expected major, minor and patch to be numeric")
           return v 
         end
@@ -30,7 +30,7 @@ primitive ParseVersion
 
       if (headAndPreRel.size() == 2) then
         for p in headAndPreRel(1).split(".").values() do
-          if ((p != "") and (Strings.containsOnly(p, _VersionConsts.nums()))) then
+          if ((p != "") and (Strings.containsOnly(p, VersionConsts.nums()))) then
             if (p.compare_sub("0", 1) is Equal) then
               v.errors.push("numeric pre-release fields cannot have leading zeros")
             else
@@ -49,5 +49,5 @@ primitive ParseVersion
       v.errors.push("unexpected internal error")
     end
 
-    v.errors.append(_VersionFieldValidator(v.prFields, v.buildFields))
+    v.errors.append(ValidateVersionFields(v.prFields, v.buildFields))
     v

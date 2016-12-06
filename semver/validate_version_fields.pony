@@ -1,4 +1,4 @@
-primitive _VersionFieldValidator
+primitive ValidateVersionFields
   fun apply(pr: Array[PreReleaseField], build: Array[String]): Array[String] =>
     let errs = Array[String]
 
@@ -26,7 +26,7 @@ primitive _VersionFieldValidator
 
     if (field == "") then
       fieldId + " is blank"
-    elseif (Strings.containsOnly(field, _VersionConsts.alphanums()) == false) then
+    elseif (Strings.containsOnly(field, VersionConsts.alphanums()) == false) then
       fieldId + " contains non-alphanumeric characters"
     else 
       ""

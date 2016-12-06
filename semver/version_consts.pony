@@ -2,7 +2,7 @@ use "collections"
 
 // TODO: review the ponylang discussion around constants
 //       the runtime cost here every time is silly for what are supposed to be fixed values
-primitive _VersionConsts
+primitive VersionConsts
   fun alphas(): Set[U8] =>
     Set[U8].union("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-".values())
   fun nums(): Set[U8] =>
