@@ -6,6 +6,7 @@ actor Main is TestList
     PonyTest(env, this)
 
   fun tag tests(test: PonyTest) =>
+    test(TestVersionComparison)
     test(TestVersionParse)
     test(TestVersionString)
     test(TestVersionValidation)
