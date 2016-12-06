@@ -7,8 +7,18 @@ class TestVersionComparison is UnitTest
 
   fun apply(h: TestHelper) =>
     let tests = [
+      // major
       ("1.0.0", "1.0.0", Equal)
       ("2.0.0", "1.0.0", Greater)
+      // minor
+      ("1.2.0", "1.2.0", Equal)
+      ("1.3.0", "1.2.0", Greater)
+      // patch
+      ("1.2.3", "1.2.3", Equal)
+      ("1.2.4", "1.2.3", Greater)
+      // pre-release
+      
+      
       // TODO: more tests
     ]
 
