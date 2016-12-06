@@ -41,4 +41,3 @@ class TestVersionComparison is UnitTest
       h.assert_eq[Compare](expected, v1.compare(v2), "v1=" + v1s + ", v2=" + v2s)
       h.assert_eq[Compare](expectedInverse, v2.compare(v1), "v1=" + v2s + ", v2=" + v1s)
     end
-    
