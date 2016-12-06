@@ -6,14 +6,25 @@ class TestVersionComparison is UnitTest
     "VersionComparison"
 
   fun apply(h: TestHelper) =>
-    let v1 = Version(1)
-    let v2 = Version(1)
-    h.assert_eq[Compare](Equal, v1.compare(v2))
-    h.assert_eq[Compare](Equal, v2.compare(v1))
+    let tests = [
+      ("1.0.0", "1.0.0", Equal)
+      ("2.0.0", "1.0.0", Greater)
+      // TODO: more tests
+    ]
 
-    let v3 = Version(1)
-    let v4 = Version(2)
-    h.assert_eq[Compare](Less, v3.compare(v4))
-    h.assert_eq[Compare](Greater, v4.compare(v3))
+    for (v1s, v2s, expected) in tests.values() do
+      let v1 = ParseVersion(v1s)
+      let v2 = ParseVersion(v2s)
+      let expectedInverse =
+        match expected
+        | Less => Greater
+        | Equal => Equal
+        | Greater => Less
+        else
+          Equal // should never get here but compiler complains without it
+        end
 
-    // TODO: more tests
+      h.assert_eq[Compare](expected, v1.compare(v2), "v1=" + v1s + ", v2=" + v2s)
+      h.assert_eq[Compare](expectedInverse, v2.compare(v1), "v1=" + v2s + ", v2=" + v1s)
+    end
+    
