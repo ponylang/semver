@@ -52,3 +52,8 @@ class Version
 
   fun buildString() : String val =>
     ".".join(buildFields)
+
+// Comparison
+
+fun compare(that: Version): Compare =>
+  CompareVersions(this, that)
