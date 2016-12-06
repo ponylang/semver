@@ -1,15 +1,15 @@
 primitive CompareVersions
   fun apply(v1: Version box, v2: Version box): Compare =>
     if (v1.major != v2.major) then
-      return if (v1.major > v2.major) then Greater else Less end
+      return v1.major.compare(v2.major)
     end
 
     if (v1.minor != v2.minor) then
-      return if (v1.minor > v2.minor) then Greater else Less end
+      return v1.minor.compare(v2.minor)
     end
 
     if (v1.patch != v2.patch) then
-      return if (v1.patch > v2.patch) then Greater else Less end
+      return v1.patch.compare(v2.patch)
     end
 
     let p1s = v1.prFields.size()
@@ -29,10 +29,7 @@ primitive CompareVersions
       end
     end
 
-    if (p1s == p2s) then Equal
-    elseif (p1s < p2s) then Less
-    else Greater
-    end
+    p1s.compare(p2s)
 
   fun _comparePRFields(p1: PreReleaseField, p2: PreReleaseField): Compare =>
     match (p1, p2)
