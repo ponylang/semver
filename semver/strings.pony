@@ -1,7 +1,7 @@
 use "collections"
 
 primitive Strings
-  fun tag containsOnly(s: String, bytes: Set[U8]): Bool =>
+  fun containsOnly(s: String, bytes: Set[U8]): Bool =>
     for byte in s.values() do
       if (bytes.contains(byte) == false) then
         return false
