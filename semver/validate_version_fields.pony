@@ -8,17 +8,13 @@ primitive ValidateVersionFields
       match field
       | let s: String =>
         let err = _validateStringField("pre-release", i, s)
-        if (err != "") then
-          errs.push(err)
-        end
+        if (err != "") then errs.push(err) end
       end
     end
 
     for (i, field) in build.pairs() do
       let err = _validateStringField("build", i, field)
-      if (err != "") then
-        errs.push(err)
-      end
+      if (err != "") then errs.push(err) end
     end
 
     errs
