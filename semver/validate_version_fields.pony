@@ -28,7 +28,7 @@ primitive ValidateVersionFields
 
     if (field == "") then
       fieldId + " is blank"
-    elseif (Strings.containsOnly(field, VersionConsts.alphanums()) == false) then
+    elseif (not Strings.containsOnly(field, VersionConsts.alphanums())) then
       fieldId + " contains non-alphanumeric characters"
     else 
       ""
