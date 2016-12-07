@@ -27,6 +27,11 @@ class Version
   fun isValid(): Bool =>
     errors.size() == 0
 
+  // Comparison
+
+  fun compare(that: Version): Compare =>
+    CompareVersions(this, that)
+
   // String inspection
   
   fun string(): String iso^ =>
@@ -52,8 +57,3 @@ class Version
 
   fun buildString(): String val =>
     ".".join(buildFields)
-
-  // Comparison
-
-  fun compare(that: Version): Compare =>
-    CompareVersions(this, that)
