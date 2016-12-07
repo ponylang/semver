@@ -2,16 +2,16 @@ use "utils"
 
 primitive CompareVersions
   fun apply(v1: Version box, v2: Version box): Compare =>
-    if (v1.major != v2.major) then
-      return v1.major.compare(v2.major)
-    end
-
-    if (v1.minor != v2.minor) then
-      return v1.minor.compare(v2.minor)
-    end
-
-    if (v1.patch != v2.patch) then
-      return v1.patch.compare(v2.patch)
+    let heads = [
+      (v1.major, v2.major),
+      (v1.minor, v2.minor),
+      (v1.patch, v2.patch)
+    ]
+    
+    for (h1, h2) in heads.values() do
+      if (h1 != h2) then
+        return h1.compare(h2)
+      end
     end
 
     let p1s = v1.prFields.size()

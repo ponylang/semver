@@ -5,7 +5,7 @@ class TestVersionComparison is UnitTest
   fun name(): String =>
     "VersionComparison"
 
-  fun apply(h: TestHelper) =>
+  fun apply(h: TestHelper) ? =>
     let tests = [
       // major
       ("1.0.0", "1.0.0", Equal) as (String, String, Compare), // hints compiler
