@@ -25,9 +25,10 @@ class TestVersionParse is UnitTest
     let v5 = ParseVersion("1.2.3")
     h.assert_true(v5.isValid())
 
-    let v6 = ParseVersion("1.2.3-pre.$..1")
+    let v6 = ParseVersion("1.2.3-pre.$..01.0a.0.1")
     h.assert_false(v6.isValid())
     h.assert_array_eq[String]([
+      "numeric pre-release fields cannot have leading zeros",
       "pre-release field 2 contains non-alphanumeric characters",
       "pre-release field 3 is blank"
     ], v6.errors)
@@ -49,14 +50,15 @@ class TestVersionParse is UnitTest
       "build field 3 is blank"
     ], v8.errors)
 
-    let v9 = ParseVersion("1.2.3-alpha.1.beta+build1.build7")
+    let v9 = ParseVersion("1.2.3-pre.0a.0.1+build.1")
     h.assert_true(v9.isValid())
     h.assert_eq[U64](1, v9.major)
     h.assert_eq[U64](2, v9.minor)
     h.assert_eq[U64](3, v9.patch)
     // TODO: work out why we cant use a union type with assert_array_eq
     // h.assert_array_eq[PreReleaseField](v9.prFields, ["alpha", 0, "beta"])
-    h.assert_eq[String]("alpha", v9.prFields(0) as String)
-    h.assert_eq[U64](1, v9.prFields(1) as U64)
-    h.assert_eq[String]("beta", v9.prFields(2) as String)
-    h.assert_array_eq[String](["build1", "build7"], v9.buildFields)
+    h.assert_eq[String]("pre", v9.prFields(0) as String)
+    h.assert_eq[String]("0a", v9.prFields(1) as String)
+    h.assert_eq[U64](0, v9.prFields(2) as U64)
+    h.assert_eq[U64](1, v9.prFields(3) as U64)
+    h.assert_array_eq[String](["build", "1"], v9.buildFields)
