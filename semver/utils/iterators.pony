@@ -1,8 +1,8 @@
 class ZipIterator[A, B] is Iterator[(A, B)]
-  let ia: Iterator[A] ref
-  let ib: Iterator[B] ref
+  let ia: Iterator[A]
+  let ib: Iterator[B]
 
-  new create(ia': Iterator[A] ref, ib': Iterator[B] ref) =>
+  new create(ia': Iterator[A], ib': Iterator[B]) =>
     ia = ia'
     ib = ib'
   
