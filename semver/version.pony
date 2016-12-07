@@ -29,7 +29,7 @@ class Version
 
   // String inspection
   
-  fun string() : String iso^ =>
+  fun string(): String iso^ =>
     let result = recover String(5) end // we always need at least 5 characters ("0.0.0")
 
     result.append(majorMinorPatchString())
@@ -44,16 +44,16 @@ class Version
 
     result
 
-  fun majorMinorPatchString() : String val =>
+  fun majorMinorPatchString(): String val =>
     ".".join([major, minor, patch])
   
-  fun preReleaseString() : String val =>
+  fun preReleaseString(): String val =>
     ".".join(prFields)
 
-  fun buildString() : String val =>
+  fun buildString(): String val =>
     ".".join(buildFields)
 
-// Comparison
+  // Comparison
 
-fun compare(that: Version): Compare =>
-  CompareVersions(this, that)
+  fun compare(that: Version): Compare =>
+    CompareVersions(this, that)
