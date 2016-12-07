@@ -9,9 +9,7 @@ primitive CompareVersions
     ]
     
     for (h1, h2) in heads.values() do
-      if (h1 != h2) then
-        return h1.compare(h2)
-      end
+      if (h1 != h2) then return h1.compare(h2) end
     end
 
     let p1s = v1.prFields.size()
