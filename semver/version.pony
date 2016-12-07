@@ -49,11 +49,11 @@ class Version
 
     result
 
-  fun majorMinorPatchString(): String val =>
+  fun majorMinorPatchString(): String =>
     ".".join([major, minor, patch])
   
-  fun preReleaseString(): String val =>
+  fun preReleaseString(): String =>
     ".".join(prFields)
 
-  fun buildString(): String val =>
+  fun buildString(): String =>
     ".".join(buildFields)
