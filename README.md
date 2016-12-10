@@ -15,7 +15,7 @@ actor Main
       // do something
     end
 
-    let v3 = ParseVersion("1.2.3-1nval1d.patch.f13lds")
+    let v3 = ParseVersion("1.2.3-1nv$l1d.prerel.f13ld$")
     if (not v3.isValid()) then
       // do something
     end
