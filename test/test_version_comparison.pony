@@ -6,6 +6,8 @@ class TestVersionComparison is UnitTest
     "VersionComparison"
 
   fun apply(h: TestHelper) ? =>
+    // Comparison rules
+
     let tests = [
       // major
       ("1.0.0", "1.0.0", Equal) as (String, String, Compare), // hints compiler
@@ -41,3 +43,25 @@ class TestVersionComparison is UnitTest
       h.assert_eq[Compare](expected, v1.compare(v2), "v1=" + v1s + ", v2=" + v2s)
       h.assert_eq[Compare](expectedInverse, v2.compare(v1), "v1=" + v2s + ", v2=" + v1s)
     end
+
+    // Operators
+
+    h.assert_true(Version(1) == Version(1))
+    h.assert_false(Version(1) == Version(2))
+
+    h.assert_true(Version(1) != Version(2))
+    h.assert_false(Version(1) != Version(1))
+
+    h.assert_true(Version(1) < Version(2))
+    h.assert_false(Version(1) < Version(1))
+
+    h.assert_true(Version(1) <= Version(1))
+    h.assert_true(Version(1) <= Version(2))
+    h.assert_false(Version(2) <= Version(1))
+
+    h.assert_true(Version(2) > Version(1))
+    h.assert_false(Version(1) > Version(1))
+
+    h.assert_true(Version(2) >= Version(1))
+    h.assert_true(Version(2) >= Version(2))
+    h.assert_false(Version(1) >= Version(2))
