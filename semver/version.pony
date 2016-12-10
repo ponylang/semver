@@ -1,7 +1,8 @@
 use "collections"
 
-// class Version is (Comparable[Version] & Stringable) // currently broken https://github.com/ponylang/ponyc/issues/1193
-class Version is Stringable
+use "utils"
+
+class Version is (ComparableMixin[Version] & Stringable)
   var major: U64 = 0
   var minor: U64 = 0
   var patch: U64 = 0
@@ -30,28 +31,8 @@ class Version is Stringable
 
   // Comparison
 
-  fun compare(that: Version): Compare =>
+  fun compare(that: Version box): Compare =>
     CompareVersions(this, that)
-
-  fun lt(that: Version): Bool =>
-    compare(that) is Less
-
-  fun le(that: Version): Bool =>
-    let c = compare(that)
-    (c is Less) or (c is Equal)
-
-  fun gt(that: Version): Bool =>
-    compare(that) is Greater
-
-  fun ge(that: Version): Bool =>
-    let c = compare(that)
-    (c is Greater) or (c is Equal)
-  
-  fun eq(that: Version): Bool =>
-    compare(that) is Equal
-
-  fun ne(that: Version): Bool =>
-    not eq(that)
 
   // String inspection
   
