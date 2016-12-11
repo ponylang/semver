@@ -71,4 +71,20 @@ class TestVersionRange is UnitTest
       h.assert_eq[VersionRange](expected, vr1.merge(vr2))
     end
 
-    // TODO: Overlap testing
+    // Overlap testing
+
+    let overlapTests = [
+      (VersionRange(v1, v2), VersionRange(v2, v3), true),
+      (VersionRange(v1, v2), VersionRange(v2, v3, false), false),
+      (VersionRange(v1, v3, true, false), VersionRange(v2, v3, false, false), true),
+      (VersionRange(None, v3), VersionRange(v0, v4), true),
+      (VersionRange(v2, None), VersionRange(v3, v4), true),
+      (VersionRange(None, None), VersionRange(None, None), true)
+    ]
+
+    for (vr1, vr2, expected) in overlapTests.values() do
+      h.assert_eq[Bool](expected, vr1.overlaps(vr2),
+        "vr1=[" + vr1.string() + "]" +
+        ", vr2=[" + vr2.string() + "]"
+      )
+    end

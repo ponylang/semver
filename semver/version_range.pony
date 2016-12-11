@@ -70,7 +70,7 @@ class VersionRange is (Equatable[VersionRange] & Stringable)
 
     (None, true) // should never get here but compiler complains without it
 
-  fun overlapsWith(that: VersionRange): Bool =>
+  fun overlaps(that: VersionRange): Bool =>
     _fromLessThanTo(this, that) and _fromLessThanTo(that, this)
 
   fun _fromLessThanTo(vr1: VersionRange box, vr2: VersionRange box): Bool =>
