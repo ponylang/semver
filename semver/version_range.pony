@@ -1,5 +1,3 @@
-type VersionRangeBound is (Version | None)
-
 class VersionRange
   let from: VersionRangeBound box
   let to: VersionRangeBound box

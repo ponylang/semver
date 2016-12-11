@@ -1,0 +1,1 @@
+type VersionRangeBound is (Version | None)
