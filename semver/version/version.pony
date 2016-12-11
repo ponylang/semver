@@ -1,6 +1,7 @@
+use "collections"
 use "../../utils"
 
-class Version is (ComparableMixin[Version] & Stringable)
+class Version is (ComparableMixin[Version] & Hashable & Stringable)
   var major: U64 = 0
   var minor: U64 = 0
   var patch: U64 = 0
@@ -24,6 +25,13 @@ class Version is (ComparableMixin[Version] & Stringable)
 
   fun compare(that: Version box): Compare =>
     CompareVersions(this, that)
+  
+  fun hash(): U64 =>
+    var h = major xor minor xor patch
+    for f in prFields.values() do
+      h = h xor f.hash()
+    end
+    h
 
   fun isValid(): Bool =>
     errors.size() == 0
