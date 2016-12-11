@@ -1,5 +1,3 @@
-use coll = "collections"
-
 use "../../utils"
 
 class Version is (ComparableMixin[Version] & Stringable)
