@@ -1,4 +1,4 @@
-use "utils"
+use "../utils"
 
 primitive ValidateVersionFields
   fun apply(pr: Array[PreReleaseField], build: Array[String]): Array[String] =>
