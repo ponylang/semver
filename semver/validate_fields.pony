@@ -1,6 +1,6 @@
 use "../utils"
 
-primitive ValidateVersionFields
+primitive ValidateFields
   fun apply(pr: Array[PreReleaseField], build: Array[String]): Array[String] =>
     let errs = Array[String]
 
@@ -24,7 +24,7 @@ primitive ValidateVersionFields
 
     if (field == "") then
       fieldId + " is blank"
-    elseif (not Strings.containsOnly(field, VersionConsts.alphanums())) then
+    elseif (not Strings.containsOnly(field, Consts.alphanums())) then
       fieldId + " contains non-alphanumeric characters"
     else 
       ""

@@ -1,7 +1,7 @@
-type VersionRangeBound is (Version | None)
+type RangeBound is (Version | None)
 
-primitive VersionRangeBoundsAreEqual
-  fun apply(vrb1: VersionRangeBound box, vrb2: VersionRangeBound box): Bool =>
+primitive RangeBoundsAreEqual
+  fun apply(vrb1: RangeBound box, vrb2: RangeBound box): Bool =>
     if (vrb1 is None) then return (vrb2 is None) end
     if (vrb2 is None) then return false end
 

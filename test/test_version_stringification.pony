@@ -1,9 +1,9 @@
 use "ponytest"
 use "../semver"
 
-class TestVersionString is UnitTest
+class TestVersionStringification is UnitTest
   fun name(): String =>
-    "VersionString"
+    "VersionStringification"
 
   fun apply(h: TestHelper) =>
     let v1 = Version(1)

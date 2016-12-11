@@ -2,9 +2,9 @@ use "../semver"
 
 class Constraint is Stringable
   let artifactName: String
-  let range: VersionRange
+  let range: Range
 
-  new create(artifactName': String, range': VersionRange) =>
+  new create(artifactName': String, range': Range) =>
     artifactName = artifactName'
     range = range'
 

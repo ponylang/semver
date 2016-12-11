@@ -1,12 +1,12 @@
-class VersionRange is (Equatable[VersionRange] & Stringable)
-  let from: VersionRangeBound box
-  let to: VersionRangeBound box
+class Range is (Equatable[Range] & Stringable)
+  let from: RangeBound box
+  let to: RangeBound box
   let fromInc: Bool
   let toInc: Bool
 
   // note: from > to will result in undefined behavior
   //       decided not to raise an error for this situation
-  new create(from': VersionRangeBound box, to': VersionRangeBound box, fromInc': Bool = true, toInc': Bool = true) =>
+  new create(from': RangeBound box, to': RangeBound box, fromInc': Bool = true, toInc': Bool = true) =>
     var fromEqualsTo = false
 
     match (from', to')
@@ -38,25 +38,25 @@ class VersionRange is (Equatable[VersionRange] & Stringable)
 
     true
   
-  fun eq(that: VersionRange box): Bool =>
-    VersionRangeBoundsAreEqual(from, that.from) and
-    VersionRangeBoundsAreEqual(to, that.to) and
+  fun eq(that: Range box): Bool =>
+    RangeBoundsAreEqual(from, that.from) and
+    RangeBoundsAreEqual(to, that.to) and
     (fromInc == that.fromInc) and
     (toInc == that.toInc)
 
   // note: ranges do not have to overlap to be merged
-  fun merge(that: VersionRange): VersionRange =>
+  fun merge(that: Range): Range =>
     (let mFrom, let mFromInc) = _mergeVersionBounds(from, that.from, fromInc, that.fromInc, Less)
     (let mTo, let mToInc) = _mergeVersionBounds(to, that.to, toInc, that.toInc, Greater)
-    VersionRange(mFrom, mTo, mFromInc, mToInc)
+    Range(mFrom, mTo, mFromInc, mToInc)
   
   fun _mergeVersionBounds(
-    vb1: VersionRangeBound box,
-    vb2: VersionRangeBound box,
+    vb1: RangeBound box,
+    vb2: RangeBound box,
     inc1: Bool,
     inc2: Bool,
     v1WinsIf: Compare
-  ): (VersionRangeBound box, Bool) =>
+  ): (RangeBound box, Bool) =>
     if ((vb1 is None) or (vb2 is None)) then return (None, true) end
 
     match (vb1, vb2)
@@ -70,10 +70,10 @@ class VersionRange is (Equatable[VersionRange] & Stringable)
 
     (None, true) // should never get here but compiler complains without it
 
-  fun overlaps(that: VersionRange): Bool =>
+  fun overlaps(that: Range): Bool =>
     _fromLessThanTo(this, that) and _fromLessThanTo(that, this)
 
-  fun _fromLessThanTo(vr1: VersionRange box, vr2: VersionRange box): Bool =>
+  fun _fromLessThanTo(vr1: Range box, vr2: Range box): Bool =>
     match (vr1.from, vr2.to)
     | (let f: Version box, let t: Version box) =>
       match f.compare(t)

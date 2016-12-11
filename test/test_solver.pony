@@ -11,7 +11,7 @@ class TestSolver is UnitTest
 
     h.assert_eq[String](
       "foo [1.0.0 (incl) to 2.0.0 (incl)]",
-      Constraint("foo", VersionRange(Version(1), Version(2))).string()
+      Constraint("foo", Range(Version(1), Version(2))).string()
     )
 
     // Artifact
@@ -21,6 +21,6 @@ class TestSolver is UnitTest
       Artifact(
         "foo",
         Version(1),
-        [Constraint("bar", VersionRange(Version(1), Version(2)))]
+        [Constraint("bar", Range(Version(1), Version(2)))]
       ).string()
     )

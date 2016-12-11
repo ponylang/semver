@@ -1,4 +1,4 @@
-use "collections"
+use coll = "collections"
 
 use "../utils"
 
@@ -22,7 +22,7 @@ class Version is (ComparableMixin[Version] & Stringable)
     patch = patch'
     prFields.append(prFields')
     buildFields.append(buildFields')
-    errors.append(ValidateVersionFields(prFields, buildFields))
+    errors.append(ValidateFields(prFields, buildFields))
 
   fun compare(that: Version box): Compare =>
     CompareVersions(this, that)

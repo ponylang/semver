@@ -1,9 +1,9 @@
 use "ponytest"
 use "../semver"
 
-class TestVersionParse is UnitTest
+class TestVersionParsing is UnitTest
   fun name(): String =>
-    "VersionParse"
+    "VersionParsing"
 
   fun apply(h: TestHelper) ? =>
     let v1 = ParseVersion("")
