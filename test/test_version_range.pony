@@ -88,3 +88,13 @@ class TestVersionRange is UnitTest
         ", vr2=[" + vr2.string() + "]"
       )
     end
+
+    // String inspection
+
+    h.assert_eq[String]("1.0.0 (incl) to 2.0.0 (incl)", VersionRange(v1, v2).string())
+    h.assert_eq[String]("1.0.0 (excl) to 2.0.0 (incl)", VersionRange(v1, v2, false).string())
+    h.assert_eq[String]("1.0.0 (incl) to 2.0.0 (excl)", VersionRange(v1, v2, true, false).string())
+    h.assert_eq[String]("1.0.0 (excl) to 2.0.0 (excl)", VersionRange(v1, v2, false, false).string())
+    h.assert_eq[String]("1.0.0 (incl) to None (incl)", VersionRange(v1, None).string())
+    h.assert_eq[String]("None (incl) to 2.0.0 (incl)", VersionRange(None, v2).string())
+    h.assert_eq[String]("None (incl) to None (incl)", VersionRange(None, None).string())
