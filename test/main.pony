@@ -8,5 +8,6 @@ actor Main is TestList
   fun tag tests(test: PonyTest) =>
     test(TestVersionComparison)
     test(TestVersionParse)
+    test(TestVersionRange)
     test(TestVersionString)
     test(TestVersionValidation)
