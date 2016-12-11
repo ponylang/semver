@@ -24,18 +24,12 @@ class Version is (ComparableMixin[Version] & Stringable)
     buildFields.append(buildFields')
     errors.append(ValidateVersionFields(prFields, buildFields))
 
-  // Validation
+  fun compare(that: Version box): Compare =>
+    CompareVersions(this, that)
 
   fun isValid(): Bool =>
     errors.size() == 0
 
-  // Comparison
-
-  fun compare(that: Version box): Compare =>
-    CompareVersions(this, that)
-
-  // String inspection
-  
   fun string(): String iso^ =>
     let result = recover String(5) end // we always need at least 5 characters ("0.0.0")
 
