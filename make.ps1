@@ -9,8 +9,8 @@ $watcher.NotifyFilter =
 while($TRUE){
   $result = $watcher.WaitForChanged([System.IO.WatcherChangeTypes]::All, 1000);
   if ($result.TimedOut -or -not $result.Name.EndsWith(".pony")) { continue; }
-  
+
   clear
   ponyc -d test
-  if ($?) { ./test }
+  if ($?) { ./test --noprog }
 }
