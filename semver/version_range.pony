@@ -1,4 +1,4 @@
-class VersionRange
+class VersionRange is (Equatable[VersionRange] & Stringable)
   let from: VersionRangeBound box
   let to: VersionRangeBound box
   let fromInc: Bool
@@ -37,22 +37,34 @@ class VersionRange
     end
 
     true
+  
+  fun eq(that: VersionRange box): Bool =>
+    VersionRangeBoundsAreEqual(from, that.from) and
+    VersionRangeBoundsAreEqual(to, that.to) and
+    (fromInc == that.fromInc) and
+    (toInc == that.toInc)
 
   // note: ranges do not have to overlap to be merged
   fun merge(that: VersionRange): VersionRange =>
-    (let mFrom, let mFromInc) = _mergeVersionBounds(from, that.from, fromInc, that.fromInc)
-    (let mTo, let mToInc) = _mergeVersionBounds(to, that.to, toInc, that.toInc)
+    (let mFrom, let mFromInc) = _mergeVersionBounds(from, that.from, fromInc, that.fromInc, Less)
+    (let mTo, let mToInc) = _mergeVersionBounds(to, that.to, toInc, that.toInc, Greater)
     VersionRange(mFrom, mTo, mFromInc, mToInc)
   
-  fun _mergeVersionBounds(vb1: VersionRangeBound box, vb2: VersionRangeBound box, inc1: Bool, inc2: Bool): (VersionRangeBound box, Bool) =>
+  fun _mergeVersionBounds(
+    vb1: VersionRangeBound box,
+    vb2: VersionRangeBound box,
+    inc1: Bool,
+    inc2: Bool,
+    v1WinsIf: Compare
+  ): (VersionRangeBound box, Bool) =>
     if ((vb1 is None) or (vb2 is None)) then return (None, true) end
 
     match (vb1, vb2)
-    | (let f1: Version box, let f2: Version box) =>
-      match f1.compare(f2)
-      | Less => return (f1, inc1)
-      | Equal => return (f1, inc1 or inc2)
-      | Greater => return (f2, inc2)
+    | (let v1: Version box, let v2: Version box) =>
+      let c = v1.compare(v2)
+      if (c is Equal) then return (v1, inc1 or inc2)
+      elseif (c is v1WinsIf) then return (v1, inc1)
+      else return (v2, inc2)
       end
     end
 
@@ -71,3 +83,11 @@ class VersionRange
     end
 
     true
+  
+  fun string(): String iso^ =>
+    let result = recover String() end
+    result.append(from.string() + " ")
+    result.append(if (fromInc) then "(incl)" else "(excl)" end + " to ")
+    result.append(to.string() + " ")
+    result.append(if (toInc) then "(incl)" else "(excl)" end)
+    result

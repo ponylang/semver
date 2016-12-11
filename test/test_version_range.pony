@@ -15,25 +15,20 @@ class TestVersionRange is UnitTest
 
     // Inclusive / exclusive boundaries
 
-    let vr1 = VersionRange(v1, v2)
-    h.assert_true(vr1.fromInc)
-    h.assert_true(vr1.toInc)
+    let incTests = [
+      (VersionRange(v1, v2), true, true),
+      (VersionRange(v1, v2, false, false), false, false),
+      (VersionRange(None, v2, false, false), true, false),
+      (VersionRange(v1, None, false, false), false, true),
+      (VersionRange(v1, v1, false, false), true, true)
+    ]
 
-    let vr2 = VersionRange(v1, v2, false, false)
-    h.assert_false(vr2.fromInc)
-    h.assert_false(vr2.toInc)
-
-    let vr3 = VersionRange(None, v2, false, false)
-    h.assert_true(vr3.fromInc)
-    h.assert_false(vr3.toInc)
-
-    let vr4 = VersionRange(v1, None, false, false)
-    h.assert_false(vr4.fromInc)
-    h.assert_true(vr4.toInc)
-
-    let vr5 = VersionRange(v1, v1, false, false)
-    h.assert_true(vr5.fromInc)
-    h.assert_true(vr5.toInc)
+    for (vr, fromInc, toInc) in incTests.values() do
+      h.assert_array_eq[Bool]([fromInc, toInc], [vr.fromInc, vr.toInc],
+        "from=" + vr.from.string() +
+        ", to=" + vr.to.string()
+      )
+    end
 
     // Contains
 
@@ -60,6 +55,20 @@ class TestVersionRange is UnitTest
       end
     end
 
-    // TODO: test merge
+    // Merge
 
-    // TODO: test overlapsWith
+    let mergeTests = [
+      (VersionRange(v1, v2), VersionRange(v2, v3), VersionRange(v1, v3)),
+      (VersionRange(v1, v2), VersionRange(v3, v4), VersionRange(v1, v4)),
+      (VersionRange(v1, v2, true, false), VersionRange(v1, v2, false, true), VersionRange(v1, v2)),
+      (VersionRange(v2, v3), VersionRange(v1, v4), VersionRange(v1, v4)),
+      (VersionRange(None, v1), VersionRange(v0, v2), VersionRange(None, v2)),
+      (VersionRange(v1, None), VersionRange(v0, v2), VersionRange(v0, None)),
+      (VersionRange(None, v1), VersionRange(v0, None), VersionRange(None, None))
+    ]
+
+    for (vr1, vr2, expected) in mergeTests.values() do
+      h.assert_eq[VersionRange](expected, vr1.merge(vr2))
+    end
+
+    // TODO: Overlap testing
