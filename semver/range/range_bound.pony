@@ -1,3 +1,5 @@
+use "../version"
+
 type RangeBound is (Version | None)
 
 primitive RangeBoundsAreEqual

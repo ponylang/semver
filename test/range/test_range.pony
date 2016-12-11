@@ -1,6 +1,7 @@
 use "ponytest"
-use "../semver"
-use "../utils"
+use "../../semver/range"
+use "../../semver/version"
+use "../../utils"
 
 class TestRange is UnitTest
   fun name(): String =>

@@ -1,3 +1,5 @@
+use "../version"
+
 class Range is (Equatable[Range] & Stringable)
   let from: RangeBound box
   let to: RangeBound box

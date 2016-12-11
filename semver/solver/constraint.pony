@@ -1,4 +1,4 @@
-use "../semver"
+use "../range"
 
 class Constraint is Stringable
   let artifactName: String

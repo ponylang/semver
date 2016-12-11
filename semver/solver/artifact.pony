@@ -1,4 +1,4 @@
-use "../semver"
+use "../version"
 
 class Artifact is Stringable
   let name: String

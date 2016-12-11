@@ -1,5 +1,5 @@
 use "ponytest"
-use "../semver"
+use "../../semver/version"
 
 class TestVersionParsing is UnitTest
   fun name(): String =>

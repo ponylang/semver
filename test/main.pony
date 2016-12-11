@@ -1,5 +1,9 @@
 use "ponytest"
 
+use "./range"
+use "./solver"
+use "./version"
+
 actor Main is TestList
 
   new create(env: Env) =>

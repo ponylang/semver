@@ -1,5 +1,5 @@
 use "ponytest"
-use "../semver"
+use "../../semver/version"
 
 class TestVersionValidation is UnitTest
   fun name(): String =>

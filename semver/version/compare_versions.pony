@@ -1,4 +1,4 @@
-use "../utils"
+use "../../utils"
 
 primitive CompareVersions
   fun apply(v1: Version box, v2: Version box): Compare =>
