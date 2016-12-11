@@ -10,8 +10,14 @@ actor Main is TestList
     PonyTest(env, this)
 
   fun tag tests(test: PonyTest) =>
-    test(TestRange)
+    test(TestRangeInclusionRules)
+    test(TestRangeMatching)
+    test(TestRangeMerging)
+    test(TestRangeOverlapDetection)
+    test(TestRangeStringification)
+
     test(TestSolver)
+
     test(TestVersionComparison)
     test(TestVersionParsing)
     test(TestVersionStringification)
