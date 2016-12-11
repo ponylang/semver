@@ -7,7 +7,20 @@ class TestSolver is UnitTest
     "Solver"
   
   fun apply(h: TestHelper) =>
+    // Constraint
+
     h.assert_eq[String](
       "foo [1.0.0 (incl) to 2.0.0 (incl)]",
       Constraint("foo", VersionRange(Version(1), Version(2))).string()
+    )
+
+    // Artifact
+
+    h.assert_eq[String](
+      "foo @ 1.0.0 -> [bar [1.0.0 (incl) to 2.0.0 (incl)]]",
+      Artifact(
+        "foo",
+        Version(1),
+        [Constraint("bar", VersionRange(Version(1), Version(2)))]
+      ).string()
     )
