@@ -11,3 +11,4 @@ actor Main is TestList
     test(TestVersionRange)
     test(TestVersionString)
     test(TestVersionValidation)
+    test(TestSolver)
