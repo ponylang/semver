@@ -27,11 +27,7 @@ class Version is (ComparableMixin[Version] & Hashable & Stringable)
     CompareVersions(this, that)
   
   fun hash(): U64 =>
-    var h = major xor minor xor patch
-    for f in prFields.values() do
-      h = h xor f.hash()
-    end
-    h
+    string().hash()
 
   fun isValid(): Bool =>
     errors.size() == 0
