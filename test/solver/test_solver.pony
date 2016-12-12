@@ -1,3 +1,4 @@
+use col = "collections"
 use "ponytest"
 use "../../semver/range"
 use "../../semver/solver"
@@ -25,3 +26,20 @@ class TestSolver is UnitTest
         [Constraint("bar", Range(Version(1), Version(2)))]
       ).string()
     )
+
+    // Artifact Source
+
+    let source = InMemArtifactSource
+    h.assert_eq[USize](0, source.allVersionsOf("foo").size())
+
+    source.add(Artifact("foo", Version(1)))
+    source.add(Artifact("foo", Version(2)))
+    h.assert_eq[USize](2, source.allVersionsOf("foo").size())
+
+    source.add(Artifact("foo", Version(1), [Constraint("bar", Range(None, None))]))
+    h.assert_eq[USize](2, source.allVersionsOf("foo").size())
+    for a in source.allVersionsOf("foo").values() do
+      if (a.version == Version(1)) then
+        h.assert_eq[USize](1, a.dependsOn.size())
+      end
+    end
