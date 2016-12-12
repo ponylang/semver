@@ -1,4 +1,4 @@
 use "collections"
 
 interface ArtifactSource
-  fun allVersionsOf(name: String): Set[Artifact] box
+  fun ref allVersionsOf(name: String): Iterator[Artifact]

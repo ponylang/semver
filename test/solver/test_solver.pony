@@ -30,15 +30,15 @@ class TestSolver is UnitTest
     // Artifact Source
 
     let source = InMemArtifactSource
-    h.assert_eq[USize](0, source.allVersionsOf("foo").size())
+    h.assert_eq[USize](0, Array[Artifact].concat(source.allVersionsOf("foo")).size())
 
     source.add(Artifact("foo", Version(1)))
     source.add(Artifact("foo", Version(2)))
-    h.assert_eq[USize](2, source.allVersionsOf("foo").size())
+    h.assert_eq[USize](2, Array[Artifact].concat(source.allVersionsOf("foo")).size())
 
     source.add(Artifact("foo", Version(1), [Constraint("bar", Range(None, None))]))
-    h.assert_eq[USize](2, source.allVersionsOf("foo").size())
-    for a in source.allVersionsOf("foo").values() do
+    h.assert_eq[USize](2, Array[Artifact].concat(source.allVersionsOf("foo")).size())
+    for a in source.allVersionsOf("foo") do
       if (a.version == Version(1)) then
         h.assert_eq[USize](1, a.dependsOn.size())
       end

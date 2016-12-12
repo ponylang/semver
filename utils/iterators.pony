@@ -1,3 +1,10 @@
+class EmptyIterator[A] is Iterator[A]
+  fun ref has_next(): Bool =>
+    false
+  
+  fun ref next(): A ? =>
+    error
+
 class ZipIterator[A, B] is Iterator[(A, B)]
   let ia: Iterator[A]
   let ib: Iterator[B]
