@@ -1,7 +1,7 @@
 use "collections"
 use "../version"
 
-class Artifact is (Equatable[Artifact] & Hashable & Stringable)
+class val Artifact is (Equatable[Artifact] & Hashable & Stringable)
   let name: String
   let version: Version
   let dependsOn: Array[Constraint]
