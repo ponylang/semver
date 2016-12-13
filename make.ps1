@@ -6,7 +6,7 @@ $watcher.NotifyFilter =
   [System.IO.NotifyFilters]::FileName -bor 
   [System.IO.NotifyFilters]::LastWrite 
 
-while($TRUE){
+while ($TRUE) {
   $result = $watcher.WaitForChanged([System.IO.WatcherChangeTypes]::All, 1000);
   if ($result.TimedOut -or -not $result.Name.EndsWith(".pony")) { continue; }
 
