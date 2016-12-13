@@ -1,46 +1,6 @@
 use col = "collections"
 use "../range"
 
-class _Cell
-  let constraint: Constraint
-  var parent: (_Cell | None) = None
-  var picks: Array[Artifact] = Array[Artifact]
-  let children: Array[_Cell] = Array[_Cell]
-  var activated: Bool = false
-  var garbage: Bool = false
-
-  new create(constraint': Constraint) =>
-    constraint = constraint'
-
-class _ConflictSnapshot is Stringable
-  let activatedCells: Array[_Cell]
-  let constraint: Constraint
-  let parent: (_Cell | None)
-
-  new create(activatedCells': Array[_Cell], constraint': Constraint, parent': (_Cell | None)) =>
-    activatedCells = activatedCells'
-    constraint = constraint'
-    parent = parent'
-  
-  fun string(): String iso^ =>
-    let result = recover String end
-
-    let activated = Array[String]
-    for c in activatedCells.values() do
-      try activated.push(c.picks(0).string()) end
-    end
-
-    result.append("constraint " + constraint.string())
-
-    match parent
-    | let p: _Cell box =>
-      try result.append(" from " + p.picks(0).string()) end
-    end
-
-    result.append(" conflicted with picked artifacts [" + ",".join(activated) + "]")
-
-    result
-
 class Solver
   let source: ArtifactSource
 
