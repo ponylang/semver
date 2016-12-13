@@ -1,7 +1,8 @@
 use "collections"
 use "../version"
+use "../../utils"
 
-class Artifact is (Equatable[Artifact] & Hashable & Stringable)
+class Artifact is (ComparableMixin[Artifact] & Hashable & Stringable)
   let name: String
   let version: Version
   let dependsOn: Array[Constraint]
@@ -14,9 +15,10 @@ class Artifact is (Equatable[Artifact] & Hashable & Stringable)
     name = name'
     version = version'
     dependsOn = dependsOn'
-
-  fun eq(that: Artifact box): Bool =>
-    (name == that.name) and (version == that.version)
+  
+  fun compare(that: Artifact box): Compare =>
+    if (name != that.name) then return name.compare(that.name) end
+    version.compare(that.version)
 
   fun hash(): U64 =>
     name.hash() xor version.hash()
