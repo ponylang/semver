@@ -45,7 +45,9 @@ class Solution
   let artifacts: Seq[Artifact] = Array[Artifact]
   var err: String = ""
 
-  new create() => None // needed because implicit ctors are currently returning weird rcaps
+  // see: https://irclog.whitequark.org/ponylang/2016-12-11#18388988
+  new create() =>
+    None
 
 class Solver
   let source: ArtifactSource
