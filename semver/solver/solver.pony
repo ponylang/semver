@@ -41,23 +41,13 @@ class _ConflictSnapshot is Stringable
 
     result
 
-class Solution
-  let artifacts: Seq[Artifact] = Array[Artifact]
-  var err: String = ""
-
-  // see: https://irclog.whitequark.org/ponylang/2016-12-11#18388988
-  new create() =>
-    None
-
 class Solver
   let source: ArtifactSource
 
   new create(source': ArtifactSource) =>
     source = source'
 
-  fun ref solve(constraints: Iterator[Constraint]): Solution =>
-    let solution = Solution
-
+  fun ref solve(constraints: Iterator[Constraint]): Result =>
     let pendingCells = Array[_Cell]
     for c in constraints do
       pendingCells.push(_Cell(c))
@@ -88,8 +78,7 @@ class Solver
           pCell.picks = _allVersionsOf(name)
           (let matchIndex, let ok) = _indexOfFirstMatch(pCell.picks, [constraint.range])
           if (not ok) then
-            solution.err = "no artifacts match " + constraint.string()
-            return solution
+            return Result(where err' = "no artifacts match " + constraint.string())
           end
 
           _pick(pCell, matchIndex, newPendingCells)
@@ -136,8 +125,7 @@ class Solver
 
             cell = c.parent
           else
-            solution.err = "no solutions found: " + firstConflict.string()
-            return solution
+            return Result(where err' = "no solutions found: " + firstConflict.string())
           end
         end
       end
@@ -145,10 +133,11 @@ class Solver
       pendingCells.concat(newPendingCells.values())
     end
 
+    let result = Result
     for cell in activatedCellsByName.values() do
-      try solution.artifacts.push(cell.picks(0)) end
+      try result.solution.push(cell.picks(0)) end
     end
-    solution
+    result
   
   fun ref _allVersionsOf(artifactName: String): Array[Artifact] =>
     // copy for isolation
