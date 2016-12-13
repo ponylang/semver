@@ -19,4 +19,3 @@ while ($TRUE) {
   if ($result.TimedOut -or -not $result.Name.EndsWith(".pony")) { continue; }
   make
 }
-
