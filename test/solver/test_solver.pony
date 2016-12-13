@@ -17,6 +17,7 @@ class TestSolver is UnitTest
     )
 
     // Artifact
+    // TODO: test compare
 
     h.assert_eq[String](
       "foo @ 1.0.0 -> [bar [1.0.0 (incl) to 2.0.0 (incl)]]",
