@@ -4,9 +4,9 @@ use "../../semver/range"
 use "../../semver/solver"
 use "../../semver/version"
 
-class TestSolver is UnitTest
+class TestSolverSupportClasses is UnitTest
   fun name(): String =>
-    "Solver"
+    "SolverSupportClasses"
   
   fun apply(h: TestHelper) =>
     // Constraint

@@ -16,7 +16,8 @@ actor Main is TestList
     test(TestRangeOverlapDetection)
     test(TestRangeStringification)
 
-    test(TestSolver)
+    test(TestSolverEngine)
+    test(TestSolverSupportClasses)
 
     test(TestVersionComparison)
     test(TestVersionParsing)
