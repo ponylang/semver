@@ -18,7 +18,7 @@ class InMemArtifactSource is ArtifactSource
       artifactSetsByName(a.name) = Set[Artifact].set(a)
     end
 
-  fun allVersionsOf(name: String): Iterator[Artifact] =>
+  fun ref allVersionsOf(name: String): Iterator[Artifact] =>
     try
       artifactSetsByName(name).values()
     else
