@@ -1,0 +1,14 @@
+# multiple parents point to disjoint children
+
+Available
+	A@1.0.0 -> C=2.0.0
+	B@1.0.0 -> C=3.0.0
+	C@1.0.0
+	C@2.0.0
+	C@3.0.0
+
+Constraints
+	A=1.0.0
+	B=1.0.0
+
+Expect

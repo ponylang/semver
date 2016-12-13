@@ -1,0 +1,12 @@
+# select one from many using simple equality
+
+Available
+	A@1.0.0
+	A@2.0.0
+	A@3.0.0
+
+Constraints
+	A=2.0.0
+
+Expect
+	A@2.0.0

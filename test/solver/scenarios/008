@@ -1,0 +1,15 @@
+# multi-level back-tracking (left-hand path contains an invalid cycle that back-tracks to A)
+
+Available
+	A@1.0.0
+	A@2.0.0 -> B=2.0.0
+	B@1.0.0
+	B@2.0.0 -> C=2.0.0
+	C@1.0.0
+	C@2.0.0 -> B=1.0.0
+
+Constraints
+	A>0.0.0
+
+Expect
+	A@1.0.0

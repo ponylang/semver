@@ -1,0 +1,18 @@
+# https://github.com/chef/depsolver/blob/ac6b159200b107445415bdfcd1a41226e855418e/test/depsolver_tests.erl#205
+
+Available
+	A@0.1.0 -> B=0.2.0,C>=0.2.0
+	A@0.2.0
+	A@0.3.0
+	B@0.1.0
+	B@0.2.0 -> C=0.1.0
+	B@0.3.0
+	C@0.1.0
+	C@0.2.0
+	C@0.3.0
+
+
+Constraints
+	A=0.1.0
+
+Expect
