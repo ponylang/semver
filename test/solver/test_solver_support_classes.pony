@@ -17,16 +17,22 @@ class TestSolverSupportClasses is UnitTest
     )
 
     // Artifact
-    // TODO: test compare
-
-    h.assert_eq[String](
-      "foo @ 1.0.0 -> [bar [1.0.0 (incl) to 2.0.0 (incl)]]",
-      Artifact(
-        "foo",
-        Version(1),
-        [Constraint("bar", Range(Version(1), Version(2)))]
-      ).string()
+    
+    let a1 = Artifact("foo", Version(1),
+      [Constraint("bar", Range(Version(1), Version(2)))]
     )
+    let a2 = Artifact("foo", Version(1))
+    let a3 = Artifact("foo", Version(2))
+    let a4 = Artifact("bar", Version(3))
+
+    h.assert_eq[String]("foo @ 1.0.0 -> [bar [1.0.0 (incl) to 2.0.0 (incl)]]", a1.string())
+    h.assert_eq[String]("foo @ 1.0.0 -> []", a2.string())
+    h.assert_eq[String]("foo @ 2.0.0 -> []", a3.string())
+    h.assert_eq[String]("bar @ 3.0.0 -> []", a4.string())
+
+    h.assert_eq[Compare](Equal, a1.compare(a2))
+    h.assert_eq[Compare](Less, a1.compare(a3))
+    h.assert_eq[Compare](Greater, a1.compare(a4))
 
     // Artifact Source
 
