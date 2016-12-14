@@ -14,15 +14,15 @@ class Scenario
     name = name'
 
   fun ref run(h: TestHelper) =>
-    let label = "scenario " + name
+    let label = "Scenario " + name
 
     let result = Solver(source).solve(constraints.values())
 
     if (expectedSolution.size() > 0) then
-      h.assert_eq[String]("", result.err, label)
+      h.assert_eq[String]("", result.err, label + " err:")
     end
 
-    h.assert_array_eq_unordered[Artifact](expectedSolution, result.solution, label)
+    h.assert_array_eq_unordered[Artifact](expectedSolution, result.solution, label + " solution:")
 
 class TestSolverEngine is UnitTest
   fun name(): String =>
