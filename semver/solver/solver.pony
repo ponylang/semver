@@ -1,5 +1,4 @@
 use col = "collections"
-use "debug"
 use "../range"
 
 class Solver
@@ -9,7 +8,7 @@ class Solver
     source = source'
 
   fun ref solve(constraints: Iterator[Constraint]): Result =>
-    let pendingCells = Array[_Cell]
+    var pendingCells = Array[_Cell]
     for c in constraints do
       pendingCells.push(_Cell(c))
     end
@@ -91,8 +90,7 @@ class Solver
         end
       end
 
-      pendingCells.clear()
-      pendingCells.concat(newPendingCells.values())
+      pendingCells = newPendingCells
     end
 
     let result = Result
@@ -109,9 +107,16 @@ class Solver
   
   fun _indexOfFirstMatch(artifacts: Array[Artifact], ranges: Seq[Range]): (USize, Bool) =>
     for (i, a) in artifacts.pairs() do
+      var allMatch = true
+
       for r in ranges.values() do
-        if r.contains(a.version) then return (i, true) end
+        if (not r.contains(a.version)) then 
+          allMatch = false
+          break
+        end
       end
+
+      if (allMatch) then return (i, true) end
     end
 
     (0, false)
