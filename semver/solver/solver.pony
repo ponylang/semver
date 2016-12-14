@@ -1,4 +1,5 @@
 use col = "collections"
+use "debug"
 use "../range"
 
 class Solver
@@ -90,6 +91,7 @@ class Solver
         end
       end
 
+      pendingCells.clear()
       pendingCells.concat(newPendingCells.values())
     end
 
