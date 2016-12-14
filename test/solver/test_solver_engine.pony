@@ -1,11 +1,10 @@
 use col = "collections"
+use "debug"
 use "files"
 use "ponytest"
 use "../../semver/range"
 use "../../semver/solver"
 use "../../semver/version"
-
-// use "debug"
 
 class Scenario
   let name: String
@@ -16,8 +15,47 @@ class Scenario
   new create(name':String) =>
     name = name'
 
-  fun run(): Bool =>
-    false
+  fun ref run(): Bool ? =>
+    let debugPrefix = "scenario " + name + " "
+    Debug(debugPrefix + "is running...")
+
+    let result = Solver(source).solve(constraints.values())
+    Debug(debugPrefix + "picks: " + ", ".join(result.solution))
+
+    if (result.isErr() and (expectations.size() > 0)) then
+      Debug(debugPrefix + "has UNEXPECTED error: " + result.err)
+      return false
+    end
+
+    for a in result.solution.values() do
+      let expected =
+        try
+          expectations(a.name)
+        else
+          Debug(debugPrefix + "generated unexpected artifact: " + a.string())
+          return false
+        end
+      
+      if (expected != a.version) then
+        Debug(
+          debugPrefix + "generated unexpected version of artifact: " +
+          " got " + a.version.string() +
+          " expected " + expected.string()
+        )
+        return false
+      end
+
+      expectations.remove(a.name)
+    end
+
+    for (name', version) in expectations.pairs() do
+      Debug(
+        debugPrefix + "failed to generate expected artifact: " +
+        name' + "@" + version.string()
+      )
+    end
+
+    expectations.size() > 0
 
 class TestSolverEngine is UnitTest
   fun name(): String =>
@@ -29,7 +67,6 @@ class TestSolverEngine is UnitTest
 
     for fileName in Directory(scenariosPath).entries().values() do
       let filePath = scenariosPath.join(fileName)
-      Debug(fileName)
       let scenario = parse(fileName, OpenFile(filePath) as File)
       if (not scenario.run()) then
         failedScenarioNames.push(scenario.name)
