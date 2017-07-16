@@ -10,21 +10,21 @@ class TestVersionComparison is UnitTest
 
     let tests = [
       // major
-      ("1.0.0", "1.0.0", Equal) as (String, String, Compare), // hints compiler
-      ("2.0.0", "1.0.0", Greater),
+      ("1.0.0", "1.0.0", Equal) as (String, String, Compare) // hints compiler
+      ("2.0.0", "1.0.0", Greater)
       // minor
-      ("1.2.0", "1.2.0", Equal),
-      ("1.3.0", "1.2.0", Greater),
+      ("1.2.0", "1.2.0", Equal)
+      ("1.3.0", "1.2.0", Greater)
       // patch
-      ("1.2.3", "1.2.3", Equal),
-      ("1.2.4", "1.2.3", Greater),
+      ("1.2.3", "1.2.3", Equal)
+      ("1.2.4", "1.2.3", Greater)
       // pre-release
-      ("1.2.3-foo", "1.2.3", Less),
-      ("1.2.3-foo", "1.2.3-foo", Equal),
-      ("1.2.3-foo.0", "1.2.3-foo.1", Less),
-      ("1.2.3-foo.0", "1.2.3-foo.a", Less),
-      ("1.2.3-foo.a", "1.2.3-foo.b", Less),
-      ("1.2.3-foo.a", "1.2.3-foo.a", Equal),
+      ("1.2.3-foo", "1.2.3", Less)
+      ("1.2.3-foo", "1.2.3-foo", Equal)
+      ("1.2.3-foo.0", "1.2.3-foo.1", Less)
+      ("1.2.3-foo.0", "1.2.3-foo.a", Less)
+      ("1.2.3-foo.a", "1.2.3-foo.b", Less)
+      ("1.2.3-foo.a", "1.2.3-foo.a", Equal)
       ("1.2.3-foo.a", "1.2.3-foo.a.b", Less)
     ]
 

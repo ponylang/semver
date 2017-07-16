@@ -27,7 +27,7 @@ class Scenario
 class TestSolverEngine is UnitTest
   fun name(): String =>
     "SolverEngine"
-  
+
   fun apply(h: TestHelper) ? =>
     let scenariosPath = FilePath(h.env.root as AmbientAuth, "test/solver/scenarios")
 
@@ -46,11 +46,11 @@ class TestSolverEngine is UnitTest
       if (line.at("#")) then continue end
 
       if (not line.at("\t")) then
-        section = line.clone().strip()
+        section = line.clone().>strip()
         continue
       end
 
-      let l = line.clone().strip()
+      let l = recover ref line.clone().>strip() end
 
       match section
       | "Available" =>
@@ -67,7 +67,7 @@ class TestSolverEngine is UnitTest
     end
 
     scenario
-  
+
   fun parseArtifact(id: String box, depList: String box): Artifact ? =>
     let deps = Array[Constraint]
     for dep in depList.split(",").values() do
@@ -76,9 +76,9 @@ class TestSolverEngine is UnitTest
 
     let idParts = id.split("@")
     Artifact(idParts(0), ParseVersion(idParts(1)), deps)
-  
+
   fun parseConstraint(c: String box): Constraint ? =>
-    for rel in ["<=", "<", ">=", ">", "="].values() do
+    for rel in ["<="; "<"; ">="; ">"; "="].values() do
       try
         let relIndex = c.find(rel)
         let cParts = c.split_by(rel)

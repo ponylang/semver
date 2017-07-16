@@ -57,7 +57,7 @@ class Solver
 
         if (firstConflict is None) then
           firstConflict = _ConflictSnapshot(
-            Array[_Cell].concat(activatedCellsByName.values()),
+            Array[_Cell].>concat(activatedCellsByName.values()),
             pCell.constraint,
             pCell.parent
           )
@@ -69,7 +69,7 @@ class Solver
         while true do
           match cell
           | let c: _Cell =>
-            let ranges = Array[Range].push(c.constraint.range)
+            let ranges = Array[Range].>push(c.constraint.range)
 
             // Blend in the constraint that kicked this backtracking off
             if (conflictingConstraint.artifactName == c.constraint.artifactName) then
@@ -98,19 +98,19 @@ class Solver
       try result.solution.push(cell.picks(0)) end
     end
     result
-  
+
   fun ref _allVersionsOf(artifactName: String): Array[Artifact] =>
     // copy for isolation
-    let versions = Array[Artifact].concat(source.allVersionsOf(artifactName))
+    let versions = Array[Artifact].>concat(source.allVersionsOf(artifactName))
     // reverse sort to make all the 'default to latest' optimizations work
     col.Sort[Array[Artifact], Artifact](versions).reverse()
-  
+
   fun _indexOfFirstMatch(artifacts: Array[Artifact], ranges: Seq[Range]): (USize, Bool) =>
     for (i, a) in artifacts.pairs() do
       var allMatch = true
 
       for r in ranges.values() do
-        if (not r.contains(a.version)) then 
+        if (not r.contains(a.version)) then
           allMatch = false
           break
         end
@@ -120,7 +120,7 @@ class Solver
     end
 
     (0, false)
-  
+
   fun _pick(cell: _Cell, index: USize, newCells: Array[_Cell]) =>
     cell.picks = cell.picks.slice(index)
 

@@ -14,11 +14,11 @@ class TestRangeOverlapDetection is UnitTest
     let v4 = ParseVersion("4.0.0")
 
     let overlapTests = [
-      (Range(v1, v2), Range(v2, v3), true),
-      (Range(v1, v2), Range(v2, v3, false), false),
-      (Range(v1, v3, true, false), Range(v2, v3, false, false), true),
-      (Range(None, v3), Range(v0, v4), true),
-      (Range(v2, None), Range(v3, v4), true),
+      (Range(v1, v2), Range(v2, v3), true)
+      (Range(v1, v2), Range(v2, v3, false), false)
+      (Range(v1, v3, true, false), Range(v2, v3, false, false), true)
+      (Range(None, v3), Range(v0, v4), true)
+      (Range(v2, None), Range(v3, v4), true)
       (Range(None, None), Range(None, None), true)
     ]
 

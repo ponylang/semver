@@ -3,11 +3,11 @@ use "../../utils"
 primitive CompareVersions
   fun apply(v1: Version box, v2: Version box): Compare =>
     let heads = [
-      (v1.major, v2.major),
-      (v1.minor, v2.minor),
+      (v1.major, v2.major)
+      (v1.minor, v2.minor)
       (v1.patch, v2.patch)
     ]
-    
+
     for (h1, h2) in heads.values() do
       if (h1 != h2) then return h1.compare(h2) end
     end

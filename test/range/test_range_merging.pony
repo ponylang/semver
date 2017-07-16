@@ -14,12 +14,12 @@ class TestRangeMerging is UnitTest
     let v4 = ParseVersion("4.0.0")
 
     let mergeTests = [
-      (Range(v1, v2), Range(v2, v3), Range(v1, v3)),
-      (Range(v1, v2), Range(v3, v4), Range(v1, v4)),
-      (Range(v1, v2, true, false), Range(v1, v2, false, true), Range(v1, v2)),
-      (Range(v2, v3), Range(v1, v4), Range(v1, v4)),
-      (Range(None, v1), Range(v0, v2), Range(None, v2)),
-      (Range(v1, None), Range(v0, v2), Range(v0, None)),
+      (Range(v1, v2), Range(v2, v3), Range(v1, v3))
+      (Range(v1, v2), Range(v3, v4), Range(v1, v4))
+      (Range(v1, v2, true, false), Range(v1, v2, false, true), Range(v1, v2))
+      (Range(v2, v3), Range(v1, v4), Range(v1, v4))
+      (Range(None, v1), Range(v0, v2), Range(None, v2))
+      (Range(v1, None), Range(v0, v2), Range(v0, None))
       (Range(None, v1), Range(v0, None), Range(None, None))
     ]
 
