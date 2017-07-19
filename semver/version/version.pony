@@ -25,7 +25,7 @@ class Version is (ComparableMixin[Version] & Hashable & Stringable)
 
   fun compare(that: Version box): Compare =>
     CompareVersions(this, that)
-  
+
   fun hash(): U64 =>
     string().hash()
 
@@ -48,8 +48,8 @@ class Version is (ComparableMixin[Version] & Hashable & Stringable)
     result
 
   fun majorMinorPatchString(): String =>
-    ".".join([major, minor, patch])
-  
+    ".".join([major; minor; patch])
+
   fun preReleaseString(): String =>
     ".".join(prFields)
 

@@ -28,25 +28,25 @@ class TestVersionParsing is UnitTest
     let v6 = ParseVersion("1.2.3-pre.$..01.0a.0.1")
     h.assert_false(v6.isValid())
     h.assert_array_eq[String]([
-      "numeric pre-release fields cannot have leading zeros",
-      "pre-release field 2 contains non-alphanumeric characters",
+      "numeric pre-release fields cannot have leading zeros"
+      "pre-release field 2 contains non-alphanumeric characters"
       "pre-release field 3 is blank"
     ], v6.errors)
 
     let v7 = ParseVersion("1.2.3+build.$..1")
     h.assert_false(v7.isValid())
     h.assert_array_eq[String]([
-      "build field 2 contains non-alphanumeric characters",
+      "build field 2 contains non-alphanumeric characters"
       "build field 3 is blank"
     ], v7.errors)
 
     let v8 = ParseVersion("1.2.3-pre.$..01.0a.0.1+build.$..1")
     h.assert_false(v8.isValid())
     h.assert_array_eq[String]([
-      "numeric pre-release fields cannot have leading zeros",
-      "pre-release field 2 contains non-alphanumeric characters",
-      "pre-release field 3 is blank",
-      "build field 2 contains non-alphanumeric characters",
+      "numeric pre-release fields cannot have leading zeros"
+      "pre-release field 2 contains non-alphanumeric characters"
+      "pre-release field 3 is blank"
+      "build field 2 contains non-alphanumeric characters"
       "build field 3 is blank"
     ], v8.errors)
 
@@ -61,4 +61,4 @@ class TestVersionParsing is UnitTest
     h.assert_eq[String]("0a", v9.prFields(1) as String)
     h.assert_eq[U64](0, v9.prFields(2) as U64)
     h.assert_eq[U64](1, v9.prFields(3) as U64)
-    h.assert_array_eq[String](["build", "1"], v9.buildFields)
+    h.assert_array_eq[String](["build"; "1"], v9.buildFields)

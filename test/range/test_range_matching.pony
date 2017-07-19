@@ -15,17 +15,17 @@ class TestRangeMatching is UnitTest
     let v4 = ParseVersion("4.0.0")
 
     let conTests = [
-      (Range(v1, v3), [false, true, true, true, false]),
-      (Range(v1, v3, false), [false, false, true, true, false]),
-      (Range(v1, v3, true, false), [false, true, true, false, false]),
-      (Range(v1, v3, false, true), [false, false, true, true, false]),
-      (Range(v1, v3, false, false), [false, false, true, false, false]),
-      (Range(None, v3), [true, true, true, true, false]),
-      (Range(v1, None), [false, true, true, true, true]),
-      (Range(None, None), [true, true, true, true, true])
+      (Range(v1, v3), [false; true; true; true; false])
+      (Range(v1, v3, false), [false; false; true; true; false])
+      (Range(v1, v3, true, false), [false; true; true; false; false])
+      (Range(v1, v3, false, true), [false; false; true; true; false])
+      (Range(v1, v3, false, false), [false; false; true; false; false])
+      (Range(None, v3), [true; true; true; true; false])
+      (Range(v1, None), [false; true; true; true; true])
+      (Range(None, None), [true; true; true; true; true])
     ]
 
-    let conTestVersions = [v0, v1, v2, v3, v4]
+    let conTestVersions = [v0; v1; v2; v3; v4]
 
     for (vr, expecteds) in conTests.values() do
       for (e, v) in ZipIterator[Bool, Version](expecteds.values(), conTestVersions.values()) do
