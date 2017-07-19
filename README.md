@@ -22,3 +22,5 @@ actor Main
 
     env.out.print(v1) // => "1.2.3"
 ```
+
+For usage of ranges / the solver see the test code for now.
