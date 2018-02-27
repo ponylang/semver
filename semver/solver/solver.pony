@@ -30,7 +30,7 @@ class Solver
         //  - add its dependencies to the tail of the pending cells
 
         let existingCell = try
-          activatedCellsByName(name)
+          activatedCellsByName(name)?
         else
           activatedCellsByName(name) = pCell
           pCell.activated = true
@@ -48,7 +48,7 @@ class Solver
         // New constraint is compatible with existing pick
 
         try
-          if (constraint.range.contains(existingCell.picks(0).version)) then continue end
+          if (constraint.range.contains(existingCell.picks(0)?.version)) then continue end
         end
 
         // New constraint is incompatible with existing pick
@@ -95,7 +95,7 @@ class Solver
 
     let result = Result
     for cell in activatedCellsByName.values() do
-      try result.solution.push(cell.picks(0)) end
+      try result.solution.push(cell.picks(0)?) end
     end
     result
 
@@ -126,7 +126,7 @@ class Solver
 
     let cellsFromDeps = Array[_Cell]
     try
-      for dep in cell.picks(0).dependsOn.values() do
+      for dep in cell.picks(0)?.dependsOn.values() do
         let c = _Cell(dep)
         c.parent = cell
         cellsFromDeps.push(c)
@@ -139,7 +139,7 @@ class Solver
   fun _pruneChildren(fromCell: _Cell, activatedCellsByName: col.Map[String, _Cell]) =>
     for cell in fromCell.children.values() do
       if cell.activated then
-        try activatedCellsByName.remove(cell.constraint.artifactName) end
+        try activatedCellsByName.remove(cell.constraint.artifactName)? end
       end
 
       cell.garbage = true

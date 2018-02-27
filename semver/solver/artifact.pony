@@ -15,7 +15,7 @@ class Artifact is (ComparableMixin[Artifact] & Hashable & Stringable)
     name = name'
     version = version'
     dependsOn = dependsOn'
-  
+
   fun compare(that: Artifact box): Compare =>
     if (name != that.name) then return name.compare(that.name) end
     version.compare(that.version)
@@ -25,5 +25,5 @@ class Artifact is (ComparableMixin[Artifact] & Hashable & Stringable)
 
   fun string(): String iso^ =>
     let result = recover String() end
-    result.append(name + " @ " + version.string() + " -> [" + ",".join(dependsOn) + "]")
+    result.append(name + " @ " + version.string() + " -> [" + ",".join(dependsOn.values()) + "]")
     result

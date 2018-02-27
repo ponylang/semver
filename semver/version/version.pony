@@ -48,10 +48,10 @@ class Version is (ComparableMixin[Version] & Hashable & Stringable)
     result
 
   fun majorMinorPatchString(): String =>
-    ".".join([major; minor; patch])
+    ".".join([major; minor; patch].values())
 
   fun preReleaseString(): String =>
-    ".".join(prFields)
+    ".".join(prFields.values())
 
   fun buildString(): String =>
-    ".".join(buildFields)
+    ".".join(buildFields.values())

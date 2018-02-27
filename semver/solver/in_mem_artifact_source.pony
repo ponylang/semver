@@ -10,14 +10,14 @@ class InMemArtifactSource is ArtifactSource
 
   fun ref add(a: Artifact) =>
     try
-      artifactSetsByName(a.name).set(a)
+      artifactSetsByName(a.name)?.set(a)
     else
       artifactSetsByName(a.name) = Set[Artifact].>set(a)
     end
 
   fun ref allVersionsOf(name: String): Iterator[Artifact] =>
     try
-      artifactSetsByName(name).values()
+      artifactSetsByName(name)?.values()
     else
       EmptyIterator[Artifact]
     end

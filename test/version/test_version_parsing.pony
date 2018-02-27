@@ -57,8 +57,8 @@ class TestVersionParsing is UnitTest
     h.assert_eq[U64](3, v9.patch)
     // TODO: work out why we cant use a union type with assert_array_eq
     // h.assert_array_eq[PreReleaseField](v9.prFields, ["alpha", 0, "beta"])
-    h.assert_eq[String]("pre", v9.prFields(0) as String)
-    h.assert_eq[String]("0a", v9.prFields(1) as String)
-    h.assert_eq[U64](0, v9.prFields(2) as U64)
-    h.assert_eq[U64](1, v9.prFields(3) as U64)
+    h.assert_eq[String]("pre", v9.prFields(0)? as String)
+    h.assert_eq[String]("0a", v9.prFields(1)? as String)
+    h.assert_eq[U64](0, v9.prFields(2)? as U64)
+    h.assert_eq[U64](1, v9.prFields(3)? as U64)
     h.assert_array_eq[String](["build"; "1"], v9.buildFields)

@@ -7,23 +7,22 @@ class _ConflictSnapshot is Stringable
     activatedCells = activatedCells'
     constraint = constraint'
     parent = parent'
-  
+
   fun string(): String iso^ =>
     let result = recover String end
 
     let activated = Array[String]
     for c in activatedCells.values() do
-      try activated.push(c.picks(0).string()) end
+      try activated.push(c.picks(0)?.string()) end
     end
 
     result.append("constraint " + constraint.string())
 
     match parent
     | let p: _Cell box =>
-      try result.append(" from " + p.picks(0).string()) end
+      try result.append(" from " + p.picks(0)?.string()) end
     end
 
-    result.append(" conflicted with picked artifacts [" + ",".join(activated) + "]")
+    result.append(" conflicted with picked artifacts [" + ",".join(activated.values()) + "]")
 
     result
-  
