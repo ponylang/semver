@@ -20,7 +20,7 @@ class Artifact is (ComparableMixin[Artifact] & Hashable & Stringable)
     if (name != that.name) then return name.compare(that.name) end
     version.compare(that.version)
 
-  fun hash(): U64 =>
+  fun hash(): USize =>
     name.hash() xor version.hash()
 
   fun string(): String iso^ =>

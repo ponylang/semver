@@ -31,6 +31,8 @@ class TestSolverEngine is UnitTest
   fun apply(h: TestHelper) ? =>
     let scenariosPath = FilePath(h.env.root as AmbientAuth, "test/solver/scenarios")?
 
+    let foo = Directory(scenariosPath)?.entries()?
+
     for fileName in Directory(scenariosPath)?.entries()?.values() do
       let filePath = scenariosPath.join(fileName)?
       let scenario = parse(fileName, OpenFile(filePath) as File)?

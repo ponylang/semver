@@ -5,12 +5,12 @@ class TestVersionComparison is UnitTest
   fun name(): String =>
     "VersionComparison"
 
-  fun apply(h: TestHelper) ? =>
+  fun apply(h: TestHelper) =>
     // Comparison rules
 
-    let tests = [
+    let tests: Array[(String, String, Compare)] = [
       // major
-      ("1.0.0", "1.0.0", Equal) as (String, String, Compare) // hints compiler
+      ("1.0.0", "1.0.0", Equal)
       ("2.0.0", "1.0.0", Greater)
       // minor
       ("1.2.0", "1.2.0", Equal)
@@ -36,8 +36,6 @@ class TestVersionComparison is UnitTest
         | Less => Greater
         | Equal => Equal
         | Greater => Less
-        else
-          Equal // should never get here but compiler complains without it
         end
 
       h.assert_eq[Compare](expected, v1.compare(v2), "v1=" + v1s + ", v2=" + v2s)

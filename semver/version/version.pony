@@ -26,7 +26,7 @@ class Version is (ComparableMixin[Version] & Hashable & Stringable)
   fun compare(that: Version box): Compare =>
     CompareVersions(this, that)
 
-  fun hash(): U64 =>
+  fun hash(): USize =>
     string().hash()
 
   fun isValid(): Bool =>
