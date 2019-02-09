@@ -1,4 +1,7 @@
-interface ComparableMixin[A] // is Comparable[A] // currently broken https://github.com/ponylang/ponyc/issues/1193
+interface ComparableMixin[A]
+ // is Comparable[A]
+ // currently broken https://github.com/ponylang/ponyc/issues/1193
+
   fun compare(that: box->A): Compare
 
   fun lt(that: box->A): Bool =>
@@ -14,7 +17,7 @@ interface ComparableMixin[A] // is Comparable[A] // currently broken https://git
   fun ge(that: box->A): Bool =>
     let c = compare(that)
     (c is Greater) or (c is Equal)
-  
+
   fun eq(that: box->A): Bool =>
     compare(that) is Equal
 

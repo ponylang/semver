@@ -12,15 +12,15 @@ primitive CompareVersions
       if (h1 != h2) then return h1.compare(h2) end
     end
 
-    let p1s = v1.prFields.size()
-    let p2s = v2.prFields.size()
+    let p1s = v1.pr_fields.size()
+    let p2s = v2.pr_fields.size()
 
     if ((p1s == 0) and (p2s == 0)) then return Equal end
     if ((p1s == 0) and (p2s > 0)) then return Greater end
     if ((p1s > 0) and (p2s == 0)) then return Less end
 
-    for (pr1, pr2) in ZipIterator[PreReleaseField, PreReleaseField](v1.prFields.values(), v2.prFields.values()) do
-      match _comparePRFields(pr1, pr2)
+    for (pr1, pr2) in ZipIterator[PreReleaseField, PreReleaseField](v1.pr_fields.values(), v2.pr_fields.values()) do
+      match _compare_pr_Fields(pr1, pr2)
       | Less => return Less
       | Greater => return Greater
       end
@@ -28,7 +28,7 @@ primitive CompareVersions
 
     p1s.compare(p2s)
 
-  fun _comparePRFields(p1: PreReleaseField, p2: PreReleaseField): Compare =>
+  fun _compare_pr_Fields(p1: PreReleaseField, p2: PreReleaseField): Compare =>
     match (p1, p2)
     | (let u1: U64, let s2: String) => Less
     | (let s1: String, let u2: U64) => Greater
