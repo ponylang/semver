@@ -7,10 +7,10 @@ class TestVersionValidation is UnitTest
 
   fun apply(h: TestHelper) =>
     let v1 = Version(1)
-    h.assert_true(v1.isValid())
+    h.assert_true(v1.is_valid())
 
-    let v2 = Version(where major' = 1, prFields' = ["good"; "b$d"; ""; 1; "fine"], buildFields' = ["good"; "b$d"; ""; "fine"])
-    h.assert_false(v2.isValid())
+    let v2 = Version(where major' = 1, pr_fields' = ["good"; "b$d"; ""; 1; "fine"], build_fields' = ["good"; "b$d"; ""; "fine"])
+    h.assert_false(v2.is_valid())
     h.assert_array_eq[String]([
         "pre-release field 2 contains non-alphanumeric characters"
         "pre-release field 3 is blank"

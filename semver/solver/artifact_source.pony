@@ -1,2 +1,2 @@
 interface ArtifactSource
-  fun ref allVersionsOf(name: String): Iterator[Artifact]
+  fun ref all_versions_of(name: String): Iterator[Artifact]

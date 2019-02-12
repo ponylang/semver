@@ -1,14 +1,14 @@
 use "../range"
 
 class Constraint is Stringable
-  let artifactName: String
+  let artifact_name: String
   let range: Range
 
-  new create(artifactName': String, range': Range) =>
-    artifactName = artifactName'
+  new create(artifact_name': String, range': Range) =>
+    artifact_name = artifact_name'
     range = range'
 
   fun string(): String iso^ =>
     let result = recover String() end
-    result.append(artifactName + " [" + range.string() + "]")
+    result.append(artifact_name + " [" + range.string() + "]")
     result

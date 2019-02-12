@@ -17,4 +17,4 @@ class ZipIterator[A, B] is Iterator[(A, B)]
     ia.has_next() and ib.has_next()
   
   fun ref next(): (A, B) ? =>
-    (ia.next(), ib.next())
+    (ia.next()?, ib.next()?)

@@ -2,7 +2,7 @@ use "collections"
 use "../../utils"
 
 class InMemArtifactSource is ArtifactSource
-  let artifactSetsByName: Map[String, Set[Artifact]] = Map[String, Set[Artifact]]
+  let artifact_sets_by_name: Map[String, Set[Artifact]] = Map[String, Set[Artifact]]
 
   // see: https://irclog.whitequark.org/ponylang/2016-12-11#18388988
   new create() =>
@@ -10,14 +10,14 @@ class InMemArtifactSource is ArtifactSource
 
   fun ref add(a: Artifact) =>
     try
-      artifactSetsByName(a.name).set(a)
+      artifact_sets_by_name(a.name)?.set(a)
     else
-      artifactSetsByName(a.name) = Set[Artifact].>set(a)
+      artifact_sets_by_name(a.name) = Set[Artifact].>set(a)
     end
 
-  fun ref allVersionsOf(name: String): Iterator[Artifact] =>
+  fun ref all_versions_of(name: String): Iterator[Artifact] =>
     try
-      artifactSetsByName(name).values()
+      artifact_sets_by_name(name)?.values()
     else
       EmptyIterator[Artifact]
     end
