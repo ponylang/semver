@@ -9,4 +9,4 @@ primitive RangeBoundsAreEqual
     | (let v1: Version box, let v2: Version box) => return v1 == v2
     end
 
-    false // should never get here
+    false // should never get here but compiler complains without it
