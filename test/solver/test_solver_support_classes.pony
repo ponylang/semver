@@ -36,7 +36,7 @@ class TestSolverSupportClasses is UnitTest
 
     // Artifact Source
 
-    let source = InMemArtifactSource
+    let source: InMemArtifactSource = source.create()
     h.assert_eq[USize](0, Array[Artifact].>concat(source.all_versions_of("foo")).size())
 
     source.add(Artifact("foo", Version(1)))

@@ -6,7 +6,7 @@ use "../../semver/version"
 
 class Scenario
   let name: String
-  let source: InMemArtifactSource = InMemArtifactSource
+  let source: InMemArtifactSource = source.create()
   let constraints: Array[Constraint] = Array[Constraint]
   let expectedSolution: Array[Artifact] = Array[Artifact]
 
