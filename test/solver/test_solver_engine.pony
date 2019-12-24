@@ -9,20 +9,17 @@ class Scenario
   let source: InMemArtifactSource = source.create()
   let constraints: Array[Constraint] = Array[Constraint]
   let expectedSolution: Array[Artifact] = Array[Artifact]
+  var expectedError: String = ""
 
   new create(name':String) =>
     name = name'
 
   fun ref run(h: TestHelper) =>
-    let label = "Scenario " + name
-
     let result = Solver(source).solve(constraints.values())
 
-    if (expectedSolution.size() > 0) then
-      h.assert_eq[String]("", result.err, label + " err:")
-    end
-
+    let label = "Scenario " + name
     h.assert_array_eq_unordered[Artifact](expectedSolution, result.solution, label + " solution:")
+    h.assert_eq[String](expectedError, result.err, label + " err:")
 
 class TestSolverEngine is UnitTest
   fun name(): String =>
@@ -65,6 +62,8 @@ class TestSolverEngine is UnitTest
       | "Expect" =>
         let artifact = parseArtifact(l, "")?
         scenario.expectedSolution.push(artifact)
+      | "Error" =>
+        scenario.expectedError = l.clone()
       end
     end
 

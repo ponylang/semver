@@ -12,3 +12,6 @@ Constraints
 	B=1.0.0
 
 Expect
+
+Error
+	no solutions found: constraint C [3.0.0 (incl) to 3.0.0 (incl)] from B @ 1.0.0 -> [C [3.0.0 (incl) to 3.0.0 (incl)]] conflicted with picked artifacts [A @ 1.0.0 -> [C [2.0.0 (incl) to 2.0.0 (incl)]],B @ 1.0.0 -> [C [3.0.0 (incl) to 3.0.0 (incl)]],C @ 2.0.0 -> []]

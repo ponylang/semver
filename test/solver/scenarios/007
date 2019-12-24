@@ -7,3 +7,6 @@ Constraints
 	B>0.0.0
 
 Expect
+
+Error
+	no artifacts match B [0.0.0 (excl) to None (incl)]
