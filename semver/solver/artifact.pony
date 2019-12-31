@@ -1,6 +1,6 @@
 use "collections"
 use "../version"
-use "../../utils"
+use "../utils"
 
 class Artifact is (ComparableMixin[Artifact] & Hashable & Stringable)
   let name: String

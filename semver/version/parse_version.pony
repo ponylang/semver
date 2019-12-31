@@ -1,4 +1,4 @@
-use "../../utils"
+use "../utils"
 
 primitive ParseVersion
   fun apply(s: String): Version =>

@@ -1,5 +1,5 @@
 use "collections"
-use "../../utils"
+use "../utils"
 
 class InMemArtifactSource is ArtifactSource
   let artifact_sets_by_name: Map[String, Set[Artifact]] = Map[String, Set[Artifact]]

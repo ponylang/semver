@@ -1,5 +1,5 @@
 use "collections"
-use "../../utils"
+use "../utils"
 
 class Version is (ComparableMixin[Version] & Hashable & Stringable)
   var major: U64 = 0
