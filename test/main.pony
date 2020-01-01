@@ -2,6 +2,7 @@ use "ponytest"
 
 use "./range"
 use "./solver"
+use "./utils"
 use "./version"
 
 actor Main is TestList
@@ -18,6 +19,8 @@ actor Main is TestList
 
     test(TestSolverEngine)
     test(TestSolverSupportClasses)
+
+    test(TestUtilsComparableMixin)
 
     test(TestVersionComparison)
     test(TestVersionParsing)
