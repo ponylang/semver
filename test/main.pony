@@ -22,6 +22,7 @@ actor Main is TestList
 
     test(TestUtilsComparableMixin)
     test(TestUtilsIterators)
+    test(TestUtilsStrings)
 
     test(TestVersionComparison)
     test(TestVersionParsing)
