@@ -21,6 +21,7 @@ actor Main is TestList
     test(TestSolverSupportClasses)
 
     test(TestUtilsComparableMixin)
+    test(TestUtilsIterators)
 
     test(TestVersionComparison)
     test(TestVersionParsing)
