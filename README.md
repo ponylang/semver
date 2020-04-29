@@ -1,11 +1,21 @@
 # pony-semver
 
-A semantic versioning library for Ponylang heavily inspired by [blang/semver](https://github.com/blang/semver).
+A semantic versioning library and constraints solver for Ponylang heavily inspired by [blang/semver](https://github.com/blang/semver).
+
+## Installation
+
+* Install [pony-stable](https://github.com/ponylang/pony-stable)
+* `stable add github ponylang/pony-semver` to add and fetch the library
+* Include any of the available packages...
+  * `use "semver/range"`
+  * `use "semver/solver"`
+  * `use "semver/version"`
+* `stable env ponyc` to compile your application
 
 ## Usage
 
 ```pony
-use "semver"
+use "semver/version"
 
 actor Main
   new create(env: Env) =>
@@ -20,7 +30,7 @@ actor Main
       // do something
     end
 
-    env.out.print(v1) // => "1.2.3"
+    env.out.print(v1.string()) // => "1.2.3"
 ```
 
 For usage of ranges / the solver see the test code for now.
