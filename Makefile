@@ -23,8 +23,8 @@ else
 	PONYC = $(COMPILE_WITH) --debug
 endif
 
-SOURCE_FILES := $(shell find $(SRC_DIR) -name \*.pony)
-EXAMPLE_SOURCE_FILES := $(shell find $(EXAMPLES_DIR) -name \*.pony)
+SOURCE_FILES := $(shell find $(SRC_DIR) -name *.pony)
+EXAMPLE_SOURCE_FILES := $(shell find $(EXAMPLES_DIR) -name *.pony)
 
 test: unit-tests build-examples
 
