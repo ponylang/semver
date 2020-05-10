@@ -1,7 +1,7 @@
 use "ponytest"
-use "../../semver/range"
-use "../../semver/version"
-use "../../semver/utils"
+use "../../range"
+use "../../version"
+use "../../utils"
 
 class TestRangeMatching is UnitTest
   fun name(): String =>

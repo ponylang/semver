@@ -1,9 +1,9 @@
 use "ponytest"
 
-use "./range"
-use "./solver"
-use "./utils"
-use "./version"
+use "./test/range"
+use "./test/solver"
+use "./test/utils"
+use "./test/version"
 
 actor Main is TestList
 

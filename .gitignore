@@ -1,8 +1,5 @@
-*.exe
-*.exp
-*.ilk
-*.lib
-*.obj
-*.pdb
-
-build/
+/build/*
+TAGS
+tags
+/_repos/*
+/_corral/*

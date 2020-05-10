@@ -1,6 +1,6 @@
 use "ponytest"
-use "../../semver/range"
-use "../../semver/version"
+use "../../range"
+use "../../version"
 
 class TestRangeMerging is UnitTest
   fun name(): String =>

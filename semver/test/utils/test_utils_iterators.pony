@@ -1,5 +1,5 @@
 use "ponytest"
-use "../../semver/utils"
+use "../../utils"
 
 class TestUtilsIterators is UnitTest
   fun name(): String =>

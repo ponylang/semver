@@ -1,5 +1,5 @@
 use "ponytest"
-use "../../semver/utils"
+use "../../utils"
 
 class AlwaysComparesAs is ComparableMixin[AlwaysComparesAs]
   let value: Compare

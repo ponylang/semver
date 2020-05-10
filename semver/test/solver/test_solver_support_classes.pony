@@ -1,8 +1,8 @@
 use col = "collections"
 use "ponytest"
-use "../../semver/range"
-use "../../semver/solver"
-use "../../semver/version"
+use "../../range"
+use "../../solver"
+use "../../version"
 
 class TestSolverSupportClasses is UnitTest
   fun name(): String =>

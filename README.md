@@ -4,13 +4,16 @@ A semantic versioning library and constraints solver for Ponylang heavily inspir
 
 ## Installation
 
-* Install [pony-stable](https://github.com/ponylang/pony-stable)
-* `stable add github ponylang/pony-semver` to add and fetch the library
+## Installation
+
+* Install [corral](https://github.com/ponylang/corral)
+* `corral add github.com/ponylang/semver.git`
+* `corral fetch` to fetch your dependencies
 * Include any of the available packages...
   * `use "semver/range"`
   * `use "semver/solver"`
   * `use "semver/version"`
-* `stable env ponyc` to compile your application
+* `corral run -- ponyc` to compile your application
 
 ## Usage
 
@@ -26,7 +29,7 @@ actor Main
     end
 
     let v3 = ParseVersion("1.2.3-1nv$l1d.prerel.f13ld$")
-    if (not v3.isValid()) then
+    if (not v3.is_valid()) then
       // do something
     end
 

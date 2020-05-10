@@ -1,8 +1,8 @@
 use "files"
 use "ponytest"
-use "../../semver/range"
-use "../../semver/solver"
-use "../../semver/version"
+use "../../range"
+use "../../solver"
+use "../../version"
 
 class Scenario
   let name: String
@@ -26,7 +26,7 @@ class TestSolverEngine is UnitTest
     "SolverEngine"
 
   fun apply(h: TestHelper) ? =>
-    let scenariosPath = FilePath(h.env.root as AmbientAuth, "test/solver/scenarios")?
+    let scenariosPath = FilePath(h.env.root as AmbientAuth, "semver/test/solver/scenarios")?
 
     let foo = Directory(scenariosPath)?.entries()?
 

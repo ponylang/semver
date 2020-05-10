@@ -1,23 +1,15 @@
 config ?= release
 
-COMPILE_WITH := ponyc
+PACKAGE := semver
+GET_DEPENDENCIES_WITH := corral fetch
+CLEAN_DEPENDENCIES_WITH := corral clean
+COMPILE_WITH := corral run -- ponyc
 
-LIB_SRC_DIR := semver
-TEST_SRC_DIR := test
-
-LIB_SRC_FILES := $(shell find $(LIB_SRC_DIR) -name "*.pony")
-TEST_SRC_FILES := $(shell find $(TEST_SRC_DIR) -name "*.pony")
-SRC_FILES := $(LIB_SRC_FILES) $(TEST_SRC_FILES)
-
-BUILD_DIR := build/$(config)
-DOCS_DIR := build/docs
-
-TEST_BINARY := $(BUILD_DIR)/test
-ifeq ( ,$(WINDIR))
-	TEST_BINARY_TARGET := $(TEST_BINARY)
-else
-	TEST_BINARY_TARGET := $(TEST_BINARY).exe
-endif
+BUILD_DIR ?= build/$(config)
+SRC_DIR := $(PACKAGE)
+EXAMPLES_DIR := examples
+tests_binary := $(BUILD_DIR)/$(PACKAGE)
+docs_dir := build/$(PACKAGE)-docs
 
 ifdef config
 	ifeq (,$(filter $(config),debug release))
@@ -31,28 +23,39 @@ else
 	PONYC = $(COMPILE_WITH) --debug
 endif
 
-test: $(TEST_BINARY_TARGET)
-	$^ --noprog
+SOURCE_FILES := $(shell find $(SRC_DIR) -name \*.pony)
+EXAMPLE_SOURCE_FILES := $(shell find $(EXAMPLES_DIR) -name \*.pony)
 
-$(TEST_BINARY_TARGET): $(SRC_FILES) | $(BUILD_DIR)
-	$(PONYC) -b $(TEST_BINARY) $(TEST_SRC_DIR)
+test: unit-tests build-examples
+
+unit-tests: $(tests_binary)
+	$^ --exclude=integration --sequential
+
+$(tests_binary): $(SOURCE_FILES) | $(BUILD_DIR)
+	$(GET_DEPENDENCIES_WITH)
+	$(PONYC) -o ${BUILD_DIR} $(SRC_DIR)
+
+build-examples: $(SOURCE_FILES) $(EXAMPLES_SOURCE_FILES) | $(BUILD_DIR)
+	$(GET_DEPENDENCIES_WITH)
+	find examples/*/* -name '*.pony' -print | xargs -n 1 dirname  | sort -u | grep -v ffi- | xargs -n 1 -I {} $(PONYC) -s --checktree -o $(BUILD_DIR) {}
 
 clean:
+	$(CLEAN_DEPENDENCIES_WITH)
 	rm -rf $(BUILD_DIR)
 
-realclean:
-	rm -rf build
+$(docs_dir): $(SOURCE_FILES)
+	rm -rf $(docs_dir)
+	$(GET_DEPENDENCIES_WITH)
+	$(PONYC) --docs-public --pass=docs --output build $(SRC_DIR)
 
-# FIXME: this target is currently broken
-$(DOCS_DIR): $(LIB_SRC_FILES)
-	rm -rf $(DOCS_DIR)
-	$(PONYC) --docs-public --pass=docs --output $(DOCS_DIR) $(LIB_SRC_FILES)
+docs: $(docs_dir)
 
-docs: $(DOCS_DIR)
+TAGS:
+	ctags --recurse=yes $(SRC_DIR)
 
 all: test
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-.PHONY: all clean docs realclean test
+.PHONY: all clean TAGS test

@@ -1,6 +1,6 @@
 use "ponytest"
-use "../../semver/range"
-use "../../semver/version"
+use "../../range"
+use "../../version"
 
 class TestRangeStringification is UnitTest
   fun name(): String =>
