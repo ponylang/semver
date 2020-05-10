@@ -1,6 +1,6 @@
 use "collections"
 use "ponytest"
-use "../../semver/utils"
+use "../../utils"
 
 class TestUtilsStrings is UnitTest
   fun name(): String =>
