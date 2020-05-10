@@ -1,6 +1,6 @@
 # Contributing
 
-You want to contribute to pony-semver? Awesome.
+You want to contribute to semver? Awesome.
 
 There are a number of ways to contribute. As this document is a little long, feel free to jump to the section that applies to you currently:
 
@@ -14,7 +14,7 @@ There are a number of ways to contribute. As this document is a little long, fee
 
 ## Bug report
 
-First of all please [search existing issues](https://github.com/ponylang/pony-semver/issues) to make sure your issue hasn't already been reported. If you cannot find a suitable issue — [create a new one](https://github.com/ponylang/pony-semver/issues/new).
+First of all please [search existing issues](https://github.com/ponylang/semver/issues) to make sure your issue hasn't already been reported. If you cannot find a suitable issue — [create a new one](https://github.com/ponylang/semver/issues/new).
 
 Provide the following details:
 
