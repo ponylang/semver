@@ -9,6 +9,9 @@ BUILD_DIR ?= build/$(config)
 SRC_DIR := $(PACKAGE)
 EXAMPLES_DIR := examples
 tests_binary := $(BUILD_DIR)/$(PACKAGE)
+ifneq ( ,$(WINDIR))
+	tests_binary := $(tests_binary).exe
+endif
 docs_dir := build/$(PACKAGE)-docs
 
 ifdef config
