@@ -30,6 +30,9 @@ SOURCE_FILES := $(shell find $(SRC_DIR) -name *.pony)
 EXAMPLES := $(notdir $(shell find $(EXAMPLES_DIR)/* -type d))
 EXAMPLES_SOURCE_FILES := $(shell find $(EXAMPLES_DIR) -name *.pony)
 EXAMPLES_BINARIES := $(addprefix ${BUILD_DIR}/,${EXAMPLES})
+ifneq ( ,$(WINDIR))
+	EXAMPLES_BINARIES := $(addsuffix .exe,${EXAMPLES_BINARIES})
+endif
 
 test: unit-tests build-examples
 
@@ -44,7 +47,7 @@ build-examples: $(EXAMPLES_BINARIES)
 
 $(EXAMPLES_BINARIES): $(BUILD_DIR)/%: $(SOURCE_FILES) $(EXAMPLES_SOURCE_FILES) | $(BUILD_DIR)
 	$(GET_DEPENDENCIES_WITH)
-	$(PONYC) -o $(BUILD_DIR) $(EXAMPLES_DIR)/$*
+	$(PONYC) -o $(BUILD_DIR) $(EXAMPLES_DIR)/$(*:.exe=)
 
 clean:
 	$(CLEAN_DEPENDENCIES_WITH)
