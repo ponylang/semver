@@ -5,13 +5,12 @@ GET_DEPENDENCIES_WITH := corral fetch
 CLEAN_DEPENDENCIES_WITH := corral clean
 COMPILE_WITH := corral run -- ponyc
 
+EXE_EXT ?= $(if $(WINDIR),.exe,)
+
 BUILD_DIR ?= build/$(config)
 SRC_DIR := $(PACKAGE)
 EXAMPLES_DIR := examples
-tests_binary := $(BUILD_DIR)/$(PACKAGE)
-ifneq ( ,$(WINDIR))
-	tests_binary := $(tests_binary).exe
-endif
+tests_binary := $(BUILD_DIR)/$(PACKAGE)$(EXE_EXT)
 docs_dir := build/$(PACKAGE)-docs
 
 ifdef config
@@ -29,10 +28,7 @@ endif
 SOURCE_FILES := $(shell find $(SRC_DIR) -name *.pony)
 EXAMPLES := $(notdir $(shell find $(EXAMPLES_DIR)/* -type d))
 EXAMPLES_SOURCE_FILES := $(shell find $(EXAMPLES_DIR) -name *.pony)
-EXAMPLES_BINARIES := $(addprefix ${BUILD_DIR}/,${EXAMPLES})
-ifneq ( ,$(WINDIR))
-	EXAMPLES_BINARIES := $(addsuffix .exe,${EXAMPLES_BINARIES})
-endif
+EXAMPLES_BINARIES := $(addsuffix $(EXE_EXT),$(addprefix ${BUILD_DIR}/,${EXAMPLES}))
 
 test: unit-tests build-examples
 
@@ -45,9 +41,9 @@ $(tests_binary): $(SOURCE_FILES) | $(BUILD_DIR)
 
 build-examples: $(EXAMPLES_BINARIES)
 
-$(EXAMPLES_BINARIES): $(BUILD_DIR)/%: $(SOURCE_FILES) $(EXAMPLES_SOURCE_FILES) | $(BUILD_DIR)
+$(EXAMPLES_BINARIES): $(BUILD_DIR)/%$(EXE_EXT): $(SOURCE_FILES) $(EXAMPLES_SOURCE_FILES) | $(BUILD_DIR)
 	$(GET_DEPENDENCIES_WITH)
-	$(PONYC) -o $(BUILD_DIR) $(EXAMPLES_DIR)/$(*:.exe=)
+	$(PONYC) -o $(BUILD_DIR) $(EXAMPLES_DIR)/$*
 
 clean:
 	$(CLEAN_DEPENDENCIES_WITH)
