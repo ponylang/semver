@@ -4,8 +4,6 @@ A semantic versioning library and constraints solver for Ponylang heavily inspir
 
 ## Status
 
-[![Actions Status](https://github.com/ponylang/semver/workflows/vs-ponyc-latest/badge.svg)](https://github.com/ponylang/semver/actions)
-
 Beta
 
 ## Installation
