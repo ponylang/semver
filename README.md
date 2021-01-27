@@ -20,3 +20,7 @@ Beta
 ## Usage
 
 See [examples](examples/) and the [ranges/solver](semver/test/) test code.
+
+## API Documentation
+
+[https://ponylang.github.io/semver](https://ponylang.github.io/semver)
