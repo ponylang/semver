@@ -1,4 +1,12 @@
 {
+  "packages": ["semver", "semver/range", "semver/solver", "semver/utils", "semver/version"],
   "deps": [],
-  "info": {}
+  "info": {
+    "description": "A semantic versioning library",
+    "homepage": "https://github.com/ponylang/semver",
+    "license": "BSD-2-Clause",
+    "documentation_url": "https://ponylang.github.io/semver",
+    "version": "0.2.0",
+    "name": "semver"
+  }
 }
