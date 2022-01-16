@@ -26,7 +26,7 @@ class TestSolverEngine is UnitTest
     "SolverEngine"
 
   fun apply(h: TestHelper) ? =>
-    let scenariosPath = FilePath(h.env.root as AmbientAuth, "semver/test/solver/scenarios")
+    let scenariosPath = FilePath(h.env.root, "semver/test/solver/scenarios")
 
     let foo = Directory(scenariosPath)?.entries()?
 
