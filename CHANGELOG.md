@@ -12,6 +12,7 @@ All notable changes to this library will be documented in this file. This projec
 
 ### Changed
 
+- Update for change in type to Env.root ([PR #37](https://github.com/ponylang/semver/pull/37))
 
 ## [0.2.2] - 2021-09-03
 
