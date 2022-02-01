@@ -1,7 +1,7 @@
 use "ponytest"
 use "../../version"
 
-class TestVersionStringification is UnitTest
+class \nodoc\ TestVersionStringification is UnitTest
   fun name(): String =>
     "VersionStringification"
 

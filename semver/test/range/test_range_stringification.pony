@@ -2,7 +2,7 @@ use "ponytest"
 use "../../range"
 use "../../version"
 
-class TestRangeStringification is UnitTest
+class \nodoc\ TestRangeStringification is UnitTest
   fun name(): String =>
     "RangeStringification"
 

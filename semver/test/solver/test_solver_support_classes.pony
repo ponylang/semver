@@ -4,7 +4,7 @@ use "../../range"
 use "../../solver"
 use "../../version"
 
-class TestSolverSupportClasses is UnitTest
+class \nodoc\ TestSolverSupportClasses is UnitTest
   fun name(): String =>
     "SolverSupportClasses"
 

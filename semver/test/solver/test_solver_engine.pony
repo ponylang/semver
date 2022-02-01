@@ -4,7 +4,7 @@ use "../../range"
 use "../../solver"
 use "../../version"
 
-class Scenario
+class \nodoc\ Scenario
   let name: String
   let source: InMemArtifactSource = source.create()
   let constraints: Array[Constraint] = Array[Constraint]
@@ -21,7 +21,7 @@ class Scenario
     h.assert_array_eq_unordered[Artifact](expectedSolution, result.solution, label + " solution:")
     h.assert_eq[String](expectedError, result.err, label + " err:")
 
-class TestSolverEngine is UnitTest
+class \nodoc\ TestSolverEngine is UnitTest
   fun name(): String =>
     "SolverEngine"
 

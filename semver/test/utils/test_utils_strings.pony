@@ -2,7 +2,7 @@ use "collections"
 use "ponytest"
 use "../../utils"
 
-class TestUtilsStrings is UnitTest
+class \nodoc\ TestUtilsStrings is UnitTest
   fun name(): String =>
     "UtilsStrings"
 
