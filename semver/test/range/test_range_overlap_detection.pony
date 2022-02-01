@@ -2,7 +2,7 @@ use "ponytest"
 use "../../range"
 use "../../version"
 
-class TestRangeOverlapDetection is UnitTest
+class \nodoc\ TestRangeOverlapDetection is UnitTest
   fun name(): String =>
     "RangeOverlapDetection"
 

@@ -2,7 +2,7 @@ use "ponytest"
 use "../../range"
 use "../../version"
 
-class TestRangeMerging is UnitTest
+class \nodoc\ TestRangeMerging is UnitTest
   fun name(): String =>
     "RangeMerging"
 

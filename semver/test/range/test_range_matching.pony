@@ -3,7 +3,7 @@ use "../../range"
 use "../../version"
 use "../../utils"
 
-class TestRangeMatching is UnitTest
+class \nodoc\ TestRangeMatching is UnitTest
   fun name(): String =>
     "RangeMatching"
 

@@ -1,7 +1,7 @@
 use "ponytest"
 use "../../utils"
 
-class TestUtilsIterators is UnitTest
+class \nodoc\ TestUtilsIterators is UnitTest
   fun name(): String =>
     "UtilsIterators"
 

@@ -2,7 +2,7 @@ use "ponytest"
 use "../../range"
 use "../../version"
 
-class TestRangeInclusionRules is UnitTest
+class \nodoc\ TestRangeInclusionRules is UnitTest
   fun name(): String =>
     "RangeInclusionRules"
 

@@ -1,7 +1,7 @@
 use "ponytest"
 use "../../utils"
 
-class AlwaysComparesAs is ComparableMixin[AlwaysComparesAs]
+class \nodoc\ AlwaysComparesAs is ComparableMixin[AlwaysComparesAs]
   let value: Compare
 
   new create(value': Compare) =>

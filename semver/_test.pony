@@ -5,7 +5,7 @@ use "./test/solver"
 use "./test/utils"
 use "./test/version"
 
-actor Main is TestList
+actor \nodoc\ Main is TestList
 
   new create(env: Env) =>
     PonyTest(env, this)
