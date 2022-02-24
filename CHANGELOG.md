@@ -6,6 +6,7 @@ All notable changes to this library will be documented in this file. This projec
 
 ### Fixed
 
+- Update to work with object capabilities changes in Pony 0.49.0
 
 ### Added
 
