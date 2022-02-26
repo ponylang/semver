@@ -9,7 +9,7 @@ Beta
 ## Installation
 
 * Install [corral](https://github.com/ponylang/corral)
-* `corral add github.com/ponylang/semver.git --version 0.2.3`
+* `corral add github.com/ponylang/semver.git --version 0.2.4`
 * `corral fetch` to fetch your dependencies
 * Include any of the available packages...
   * `use "semver/range"`
