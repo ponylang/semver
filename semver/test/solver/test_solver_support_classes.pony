@@ -1,5 +1,5 @@
 use col = "collections"
-use "ponytest"
+use "pony_test"
 use "../../range"
 use "../../solver"
 use "../../version"

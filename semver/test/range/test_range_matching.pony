@@ -1,4 +1,4 @@
-use "ponytest"
+use "pony_test"
 use "../../range"
 use "../../version"
 use "../../utils"

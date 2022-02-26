@@ -1,4 +1,4 @@
-use "ponytest"
+use "pony_test"
 
 use "./test/range"
 use "./test/solver"
