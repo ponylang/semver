@@ -1,5 +1,5 @@
 use "collections"
-use "ponytest"
+use "pony_test"
 use "../../utils"
 
 class \nodoc\ TestUtilsStrings is UnitTest
