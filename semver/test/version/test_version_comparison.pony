@@ -32,7 +32,7 @@ class \nodoc\ TestVersionComparison is UnitTest
       let v1 = ParseVersion(v1s)
       let v2 = ParseVersion(v2s)
       let expectedInverse =
-        match expected
+        match \exhaustive\ expected
         | Less => Greater
         | Equal => Equal
         | Greater => Less
