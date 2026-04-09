@@ -29,11 +29,9 @@ primitive CompareVersions
     p1s.compare(p2s)
 
   fun _compare_pr_Fields(p1: PreReleaseField, p2: PreReleaseField): Compare =>
-    match (p1, p2)
+    match \exhaustive\ (p1, p2)
     | (let u1: U64, let s2: String) => Less
     | (let s1: String, let u2: U64) => Greater
     | (let u1: U64, let u2: U64) => u1.compare(u2)
     | (let s1: String, let s2: String) => s1.compare(s2)
-    else
-      Equal // should never get here but compiler complains without it
     end
