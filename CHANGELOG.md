@@ -6,6 +6,7 @@ All notable changes to this library will be documented in this file. This projec
 
 ### Fixed
 
+- Fix build failure with recent Pony compilers ([PR #70](https://github.com/ponylang/semver/pull/70))
 
 ### Added
 
