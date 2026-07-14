@@ -34,7 +34,7 @@ EXAMPLES_BINARIES := $(addsuffix $(EXE_EXT),$(addprefix ${BUILD_DIR}/,${EXAMPLES
 test: unit-tests build-examples
 
 unit-tests: $(tests_binary)
-	$^ --exclude=integration --sequential
+	$^ --exclude=integration --sequential --shuffle
 
 test-one: $(tests_binary)
 	$^ --only="$(t)"
