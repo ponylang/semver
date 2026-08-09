@@ -5,6 +5,7 @@ GET_DEPENDENCIES_WITH := corral fetch
 CLEAN_DEPENDENCIES_WITH := corral clean
 COMPILE_WITH := corral run -- ponyc
 BUILD_DOCS_WITH := corral run -- pony-doc
+LINT_WITH := pony-lint
 
 EXE_EXT ?= $(if $(WINDIR),.exe,)
 
@@ -49,6 +50,9 @@ $(EXAMPLES_BINARIES): $(BUILD_DIR)/%$(EXE_EXT): $(SOURCE_FILES) $(EXAMPLES_SOURC
 	$(GET_DEPENDENCIES_WITH)
 	$(PONYC) -o $(BUILD_DIR) $(EXAMPLES_DIR)/$*
 
+lint:
+	$(LINT_WITH) .
+
 clean:
 	$(CLEAN_DEPENDENCIES_WITH)
 	rm -rf $(BUILD_DIR)
@@ -68,4 +72,4 @@ all: test
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-.PHONY: all build-examples clean TAGS test test-one
+.PHONY: all build-examples clean lint TAGS test test-one

@@ -3,7 +3,11 @@ class _ConflictSnapshot is Stringable
   let constraint: Constraint
   let parent: (_Cell | None)
 
-  new create(activated_cells': Array[_Cell], constraint': Constraint, parent': (_Cell | None)) =>
+  new create(
+    activated_cells': Array[_Cell],
+    constraint': Constraint,
+    parent': (_Cell | None))
+  =>
     activated_cells = activated_cells'
     constraint = constraint'
     parent = parent'
@@ -23,6 +27,8 @@ class _ConflictSnapshot is Stringable
       try result.append(" from " + p.picks(0)?.string()) end
     end
 
-    result.append(" conflicted with picked artifacts [" + ",".join(activated.values()) + "]")
+    result.append(
+      " conflicted with picked artifacts ["
+        + ",".join(activated.values()) + "]")
 
     result

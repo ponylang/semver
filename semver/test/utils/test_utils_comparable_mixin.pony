@@ -10,7 +10,11 @@ class \nodoc\ AlwaysComparesAs is ComparableMixin[AlwaysComparesAs]
   fun compare(that: AlwaysComparesAs box): Compare =>
     value
 
-class TestUtilsComparableMixin is UnitTest
+class \nodoc\ TestUtilsComparableMixin is UnitTest
+  """
+  Tests ComparableMixin operator methods.
+  """
+
   fun name(): String =>
     "UtilsComparableMixin"
 

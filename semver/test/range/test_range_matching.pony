@@ -14,25 +14,41 @@ class \nodoc\ TestRangeMatching is UnitTest
     let v3 = ParseVersion("3.0.0")
     let v4 = ParseVersion("4.0.0")
 
-    let conTests = [
-      (Range(v1, v3), [false; true; true; true; false])
-      (Range(v1, v3, false), [false; false; true; true; false])
-      (Range(v1, v3, true, false), [false; true; true; false; false])
-      (Range(v1, v3, false, true), [false; false; true; true; false])
-      (Range(v1, v3, false, false), [false; false; true; false; false])
-      (Range(None, v3), [true; true; true; true; false])
-      (Range(v1, None), [false; true; true; true; true])
-      (Range(None, None), [true; true; true; true; true])
-    ]
+    let con_tests =
+      [
+        (Range(v1, v3),
+          [false; true; true; true; false])
+        (Range(v1, v3, false),
+          [false; false; true; true; false])
+        (Range(v1, v3, true, false),
+          [false; true; true; false; false])
+        (Range(v1, v3, false, true),
+          [false; false; true; true; false])
+        (Range(v1, v3, false, false),
+          [false; false; true; false; false])
+        (Range(None, v3),
+          [true; true; true; true; false])
+        (Range(v1, None),
+          [false; true; true; true; true])
+        (Range(None, None),
+          [true; true; true; true; true])
+      ]
 
-    let conTestVersions = [v0; v1; v2; v3; v4]
+    let con_test_versions =
+      [v0; v1; v2; v3; v4]
 
-    for (vr, expecteds) in conTests.values() do
-      for (e, v) in ZipIterator[Bool, Version](expecteds.values(), conTestVersions.values()) do
-        h.assert_eq[Bool](e, vr.contains(v),
-          "from=" + vr.from.string() +
-          ", to=" + vr.to.string() +
-          ", v=" + v.string()
-        )
+    for (vr, expecteds) in con_tests.values() do
+      for (e, v) in
+        ZipIterator[Bool, Version](
+          expecteds.values(),
+          con_test_versions.values())
+      do
+        h.assert_eq[Bool](
+          e,
+          vr.contains(v)
+          where msg =
+            "from=" + vr.from.string()
+              + ", to=" + vr.to.string()
+              + ", v=" + v.string())
       end
     end
