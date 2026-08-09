@@ -1,7 +1,17 @@
+"""
+Semantic version representation: parsing, comparison, validation, and
+string formatting.
+"""
+
 use "collections"
 use "../utils"
 
 class Version is (ComparableMixin[Version] & Hashable & Stringable)
+  """
+  A semantic version with major, minor, patch, optional pre-release
+  fields, and optional build metadata.
+  """
+
   var major: U64 = 0
   var minor: U64 = 0
   var patch: U64 = 0
@@ -33,7 +43,8 @@ class Version is (ComparableMixin[Version] & Hashable & Stringable)
     errors.size() == 0
 
   fun string(): String iso^ =>
-    let result = recover String(5) end // we always need at least 5 characters ("0.0.0")
+    // We always need at least 5 characters ("0.0.0").
+    let result = recover String(5) end
 
     result.append(major_minor_patch_string())
 

@@ -1,4 +1,8 @@
 class Result
+  """
+  The outcome of a solve: either a list of resolved artifacts or an
+  error message.
+  """
   let solution: Array[Artifact]
   let err: String
 

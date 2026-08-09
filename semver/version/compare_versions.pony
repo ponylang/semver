@@ -1,12 +1,19 @@
 use "../utils"
 
 primitive CompareVersions
+  """
+  Compares two versions by major.minor.patch, then pre-release fields.
+  """
   fun apply(v1: Version box, v2: Version box): Compare =>
-    let heads = [
-      (v1.major, v2.major)
-      (v1.minor, v2.minor)
-      (v1.patch, v2.patch)
-    ]
+    """
+    Returns the ordering of v1 relative to v2 per the semver spec.
+    """
+    let heads =
+      [
+        (v1.major, v2.major)
+        (v1.minor, v2.minor)
+        (v1.patch, v2.patch)
+      ]
 
     for (h1, h2) in heads.values() do
       if (h1 != h2) then return h1.compare(h2) end
@@ -19,8 +26,11 @@ primitive CompareVersions
     if ((p1s == 0) and (p2s > 0)) then return Greater end
     if ((p1s > 0) and (p2s == 0)) then return Less end
 
-    for (pr1, pr2) in ZipIterator[PreReleaseField, PreReleaseField](v1.pr_fields.values(), v2.pr_fields.values()) do
-      match _compare_pr_Fields(pr1, pr2)
+    for (pr1, pr2) in
+      ZipIterator[PreReleaseField, PreReleaseField](
+        v1.pr_fields.values(), v2.pr_fields.values())
+    do
+      match _compare_pr_fields(pr1, pr2)
       | Less => return Less
       | Greater => return Greater
       end
@@ -28,7 +38,11 @@ primitive CompareVersions
 
     p1s.compare(p2s)
 
-  fun _compare_pr_Fields(p1: PreReleaseField, p2: PreReleaseField): Compare =>
+  fun _compare_pr_fields(
+    p1: PreReleaseField,
+    p2: PreReleaseField)
+    : Compare
+  =>
     match \exhaustive\ (p1, p2)
     | (let u1: U64, let s2: String) => Less
     | (let s1: String, let u2: U64) => Greater

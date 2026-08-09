@@ -8,8 +8,8 @@ class \nodoc\ Scenario
   let name: String
   let source: InMemArtifactSource = source.create()
   let constraints: Array[Constraint] = Array[Constraint]
-  let expectedSolution: Array[Artifact] = Array[Artifact]
-  var expectedError: String = ""
+  let expected_solution: Array[Artifact] = Array[Artifact]
+  var expected_error: String = ""
 
   new create(name':String) =>
     name = name'
@@ -18,22 +18,33 @@ class \nodoc\ Scenario
     let result = Solver(source).solve(constraints.values())
 
     let label = "Scenario " + name
-    h.assert_array_eq_unordered[Artifact](expectedSolution, result.solution, label + " solution:")
-    h.assert_eq[String](expectedError, result.err, label + " err:")
+    h.assert_array_eq_unordered[Artifact](
+      expected_solution,
+      result.solution,
+      label + " solution:")
+    h.assert_eq[String](
+      expected_error,
+      result.err,
+      label + " err:")
 
 class \nodoc\ TestSolverEngine is UnitTest
   fun name(): String =>
     "SolverEngine"
 
   fun apply(h: TestHelper) ? =>
-    let scenariosPath = FilePath(
-      FileAuth(h.env.root), "semver/test/solver/scenarios")
+    let scenarios_path =
+      FilePath(
+        FileAuth(h.env.root),
+        "semver/test/solver/scenarios")
 
-    let foo = Directory(scenariosPath)?.entries()?
+    let foo = Directory(scenarios_path)?.entries()?
 
-    for fileName in Directory(scenariosPath)?.entries()?.values() do
-      let filePath = scenariosPath.join(fileName)?
-      let scenario = parse(fileName, OpenFile(filePath) as File)?
+    for file_name in
+      Directory(scenarios_path)?.entries()?.values()
+    do
+      let file_path = scenarios_path.join(file_name)?
+      let scenario =
+        parse(file_name, OpenFile(file_path) as File)?
       scenario.run(h)
     end
 
@@ -46,50 +57,71 @@ class \nodoc\ TestSolverEngine is UnitTest
       if (line.at("#")) then continue end
 
       if (not line.at("\t")) then
-        section = line.clone().>strip()
+        section = line.clone()
+          .> strip()
         continue
       end
 
-      let l = recover ref line.clone().>strip() end
+      let l =
+        recover ref line.clone()
+          .> strip()
+        end
 
       match section
       | "Available" =>
         let parts = l.split_by(" -> ")
-        let artifact = parseArtifact(parts(0)?, try parts(1)? else "" end)?
+        let artifact =
+          parse_artifact(
+            parts(0)?,
+            try parts(1)? else "" end)?
         scenario.source.add(artifact)
       | "Constraints" =>
-        let constraint = parseConstraint(l)?
+        let constraint = parse_constraint(l)?
         scenario.constraints.push(constraint)
       | "Expect" =>
-        let artifact = parseArtifact(l, "")?
-        scenario.expectedSolution.push(artifact)
+        let artifact = parse_artifact(l, "")?
+        scenario.expected_solution.push(artifact)
       | "Error" =>
-        scenario.expectedError = l.clone()
+        scenario.expected_error = l.clone()
       end
     end
 
     scenario
 
-  fun parseArtifact(id: String box, depList: String box): Artifact ? =>
+  fun parse_artifact(
+    id: String box,
+    dep_list: String box)
+    : Artifact ?
+  =>
     let deps = Array[Constraint]
-    for dep in depList.split(",").values() do
-      deps.push(parseConstraint(dep)?)
+    for dep in dep_list.split(",").values() do
+      deps.push(parse_constraint(dep)?)
     end
 
-    let idParts = id.split("@")
-    Artifact(idParts(0)?, ParseVersion(idParts(1)?), deps)
+    let id_parts = id.split("@")
+    Artifact(
+      id_parts(0)?, ParseVersion(id_parts(1)?), deps)
 
-  fun parseConstraint(c: String box): Constraint ? =>
-    for rel in ["<="; "<"; ">="; ">"; "="].values() do
+  fun parse_constraint(c: String box): Constraint ? =>
+    for rel in
+      ["<="; "<"; ">="; ">"; "="].values()
+    do
       try
-        let relIndex = c.find(rel)?
-        let cParts = c.split_by(rel)
-        let version = ParseVersion(cParts(1)?)
-        let fromVersion = if (rel.at("<")) then None else version end
-        let toVersion = if (rel.at(">")) then None else version end
+        let rel_index = c.find(rel)?
+        let c_parts = c.split_by(rel)
+        let version = ParseVersion(c_parts(1)?)
+        let from_version =
+          if (rel.at("<")) then None else version end
+        let to_version =
+          if (rel.at(">")) then None else version end
         let inclusive = (rel.contains("="))
-        let range = Range(fromVersion, toVersion, inclusive, inclusive)
-        return Constraint(cParts(0)?, range)
+        let range =
+          Range(
+            from_version,
+            to_version,
+            inclusive,
+            inclusive)
+        return Constraint(c_parts(0)?, range)
       end
     end
 

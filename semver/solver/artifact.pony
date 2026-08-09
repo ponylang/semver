@@ -3,6 +3,9 @@ use "../version"
 use "../utils"
 
 class Artifact is (ComparableMixin[Artifact] & Hashable & Stringable)
+  """
+  A named versioned package with its dependency constraints.
+  """
   let name: String
   let version: Version
   let depends_on: Array[Constraint]
@@ -24,6 +27,8 @@ class Artifact is (ComparableMixin[Artifact] & Hashable & Stringable)
     name.hash() xor version.hash()
 
   fun string(): String iso^ =>
-    let result = recover String() end
-    result.append(name + " @ " + version.string() + " -> [" + ",".join(depends_on.values()) + "]")
-    result
+    (recover String() end)
+      .> append(
+        name + " @ " + version.string()
+          + " -> ["
+          + ",".join(depends_on.values()) + "]")

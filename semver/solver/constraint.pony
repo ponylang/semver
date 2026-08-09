@@ -1,6 +1,9 @@
 use "../range"
 
 class Constraint is Stringable
+  """
+  A named artifact paired with the version range it must satisfy.
+  """
   let artifact_name: String
   let range: Range
 
@@ -9,6 +12,5 @@ class Constraint is Stringable
     range = range'
 
   fun string(): String iso^ =>
-    let result = recover String() end
-    result.append(artifact_name + " [" + range.string() + "]")
-    result
+    (recover String() end)
+      .> append(artifact_name + " [" + range.string() + "]")

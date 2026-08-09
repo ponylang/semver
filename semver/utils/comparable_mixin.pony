@@ -1,4 +1,7 @@
 interface ComparableMixin[A: Comparable[A] #read] is Comparable[A]
+  """
+  Derives all comparison operators from a single `compare` method.
+  """
   fun compare(that: box->A): Compare
 
   fun lt(that: box->A): Bool =>

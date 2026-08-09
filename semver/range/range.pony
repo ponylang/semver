@@ -1,13 +1,22 @@
+"""
+Semantic version ranges for inclusion testing and merging.
+"""
+
 use "../version"
 
 class Range is (Equatable[Range] & Stringable)
+  """
+  A half-open or closed interval over semantic versions. Ranges can test
+  whether a version falls within them, merge with other ranges, and detect
+  overlap.
+  """
   let from: RangeBound box
   let to: RangeBound box
   let from_inc: Bool
   let to_inc: Bool
 
-  // note: from > to will result in undefined behavior
-  //       decided not to raise an error for this situation
+  // Note: from > to will result in undefined behavior.
+  // Decided not to raise an error for this situation.
   new create(
     from': RangeBound box,
     to': RangeBound box,
@@ -51,10 +60,14 @@ class Range is (Equatable[Range] & Stringable)
     (from_inc == that.from_inc) and
     (to_inc == that.to_inc)
 
-  // note: ranges do not have to overlap to be merged
+  // Note: ranges do not have to overlap to be merged.
   fun merge(that: Range): Range =>
-    (let m_from, let m_from_inc) = _merge_version_bounds(from, that.from, from_inc, that.from_inc, Less)
-    (let m_to, let m_to_inc) = _merge_version_bounds(to, that.to, to_inc, that.to_inc, Greater)
+    (let m_from, let m_from_inc) =
+      _merge_version_bounds(
+        from, that.from, from_inc, that.from_inc, Less)
+    (let m_to, let m_to_inc) =
+      _merge_version_bounds(
+        to, that.to, to_inc, that.to_inc, Greater)
     Range(m_from, m_to, m_from_inc, m_to_inc)
 
   fun _merge_version_bounds(
@@ -91,9 +104,10 @@ class Range is (Equatable[Range] & Stringable)
     true
 
   fun string(): String iso^ =>
-    let result = recover String() end
-    result.append(from.string() + " ")
-    result.append(if (from_inc) then "(incl)" else "(excl)" end + " to ")
-    result.append(to.string() + " ")
-    result.append(if (to_inc) then "(incl)" else "(excl)" end)
-    result
+    (recover String() end)
+      .> append(from.string() + " ")
+      .> append(
+        if from_inc then "(incl)" else "(excl)" end + " to ")
+      .> append(to.string() + " ")
+      .> append(
+        if to_inc then "(incl)" else "(excl)" end)
