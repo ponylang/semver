@@ -26,7 +26,7 @@ class Artifact is (ComparableMixin[Artifact] & Hashable & Stringable)
   fun hash(): USize =>
     name.hash() xor version.hash()
 
-  fun string(): String iso^ =>
+  fun string(): String =>
     (recover String() end)
       .> append(
         name + " @ " + version.string()
