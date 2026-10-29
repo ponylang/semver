@@ -42,7 +42,7 @@ class Version is (ComparableMixin[Version] & Hashable & Stringable)
   fun is_valid(): Bool =>
     errors.size() == 0
 
-  fun string(): String iso^ =>
+  fun string(): String =>
     // We always need at least 5 characters ("0.0.0").
     let result = recover String(5) end
 
