@@ -12,6 +12,7 @@ All notable changes to this library will be documented in this file. This projec
 
 ### Changed
 
+- Update to work with ponyc 0.78.0 ([PR #88](https://github.com/ponylang/semver/pull/88))
 
 ## [0.2.5] - 2026-04-09
 
